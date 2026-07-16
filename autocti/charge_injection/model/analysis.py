@@ -1,3 +1,4 @@
+import numpy as np
 import logging
 from typing import List, Optional
 
@@ -6,6 +7,7 @@ from autoconf.dictable import to_dict
 
 import autoarray as aa
 import autofit as af
+from autoconf.fitsable import hdu_list_for_output_from
 
 from autocti.charge_injection.imaging.imaging import ImagingCI
 from autocti.charge_injection.fit import FitImagingCI
@@ -261,29 +263,30 @@ class AnalysisImagingCI(AnalysisCTI):
             return
 
         def output_dataset(dataset, prefix):
+            values_list = [
+                np.asarray(dataset.mask).astype("float"),
+                np.asarray(dataset.data.native),
+                np.asarray(dataset.noise_map.native),
+                np.asarray(dataset.pre_cti_data.native),
+            ]
+            ext_name_list = ["mask", "data", "noise_map", "pre_cti_data"]
+
+            if dataset.cosmic_ray_map is not None:
+                values_list.append(np.asarray(dataset.cosmic_ray_map.native))
+                ext_name_list.append("cosmic_ray_map")
+
             paths.save_fits(
-                name="data",
-                hdu=dataset.data.hdu_for_output,
-                prefix=prefix,
-            )
-            paths.save_fits(
-                name="noise_map",
-                hdu=dataset.noise_map.hdu_for_output,
-                prefix=prefix,
-            )
-            paths.save_fits(
-                name="pre_cti_data",
-                hdu=dataset.pre_cti_data.hdu_for_output,
+                name="dataset",
+                fits=hdu_list_for_output_from(
+                    values_list=values_list,
+                    ext_name_list=ext_name_list,
+                    header_dict=dataset.mask.header_dict,
+                ),
                 prefix=prefix,
             )
             paths.save_json(
                 name="layout",
                 object_dict=to_dict(dataset.layout),
-                prefix=prefix,
-            )
-            paths.save_fits(
-                name="mask",
-                hdu=dataset.mask.hdu_for_output,
                 prefix=prefix,
             )
 

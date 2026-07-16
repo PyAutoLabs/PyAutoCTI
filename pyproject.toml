@@ -1,0 +1,74 @@
+[build-system]
+requires = ["setuptools>=79.0", "setuptools-scm", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "autocti"
+dynamic = ["version"]
+description = "PyAutoCTI: Charge Transfer Inefficiency Modeling"
+readme = { file = "README.rst", content-type = "text/x-rst" }
+license = { text = "MIT" }
+requires-python = ">=3.9"
+authors = [
+    { name = "James Nightingale", email = "James.Nightingale@newcastle.ac.uk" },
+    { name = "Richard Massey", email = "r.j.massey@durham.ac.uk" },
+    { name = "Jacob Kegerreis" },
+    { name = "Richard Hayes", email = "richard@rghsoftware.co.uk" },
+]
+classifiers = [
+  "Intended Audience :: Science/Research",
+  "Topic :: Scientific/Engineering :: Physics",
+  "Natural Language :: English",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13"
+]
+keywords = ["cli"]
+# arcticpy (the C++ arctic clocking code) is a hard import of autocti but is
+# deliberately NOT a pip dependency: its sdist is source-only (needs libgsl-dev
+# and a C++ toolchain) and its own requirements downgrade numpy below 2.0.
+# Install it separately with `pip install arcticpy==2.6 --no-build-isolation
+# --no-deps` after installing numpy.
+dependencies = [
+    "autofit",
+    "autoarray",
+    "nautilus-sampler==1.0.5"
+]
+
+[project.urls]
+Homepage = "https://github.com/PyAutoLabs/PyAutoCTI"
+
+[tool.setuptools]
+include-package-data = true
+
+[tool.setuptools.packages.find]
+exclude = ["docs", "test_autocti", "test_autocti*"]
+
+[tool.setuptools_scm]
+version_scheme = "post-release"
+local_scheme = "no-local-version"
+
+[project.optional-dependencies]
+optional = [
+    "numba",
+]
+docs = [
+    "sphinx",
+    "furo",
+    "myst-parser",
+    "sphinx_copybutton",
+    "sphinx_design",
+    "sphinx_inline_tabs",
+    "sphinx_autodoc_typehints"
+]
+test = ["pytest"]
+dev = ["pytest", "black"]
+
+[tool.setuptools.package-data]
+"autocti.config" = ["*"]
+
+[tool.pytest.ini_options]
+testpaths = ["test_autocti"]

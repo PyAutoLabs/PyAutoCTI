@@ -11,6 +11,7 @@ from autoarray.structures.arrays import array_2d_util
 from autoarray.layout import layout_util
 
 from autocti.instruments.acs import acs_util
+from autoconf import fitsable
 
 logging.basicConfig()
 logger = logging.getLogger()
@@ -55,7 +56,7 @@ class Array2DACS(Array2D):
             quadrant_letter=quadrant_letter
         )
 
-        array = array_2d_util.numpy_array_2d_via_fits_from(file_path=file_path, hdu=hdu)
+        array = fitsable.ndarray_via_fits_from(file_path=file_path, hdu=hdu)
 
         return cls.from_ccd(array_electrons=array, quadrant_letter=quadrant_letter)
 

@@ -215,9 +215,14 @@ def charge_injection_array_from(
     The array is rotated back to its original reference frame via the roe_corner, so other OU-Sim processing 
     works correctly.
     """
-    return layout_util.rotate_array_via_roe_corner_from(
-        array=pre_cti_data.native, roe_corner=roe_corner
-    )
+    # rotate_array_via_roe_corner_from returns a plain ndarray, so the result is
+    # wrapped back into an Array2D for downstream use.
+    return Array2D.no_mask(
+        values=layout_util.rotate_array_via_roe_corner_from(
+            array=pre_cti_data.native, roe_corner=roe_corner
+        ),
+        pixel_scales=pixel_scales,
+    ).native
 
 
 def add_cti_to_pre_cti_data(
@@ -234,9 +239,19 @@ def add_cti_to_pre_cti_data(
 
     roe_corner = euclid_util.roe_corner_from(ccd_id=ccd_id, quadrant_id=quadrant_id)
 
-    pre_cti_data = layout_util.rotate_array_via_roe_corner_from(
-        array=pre_cti_data, roe_corner=roe_corner
-    )
+    pixel_scales = getattr(pre_cti_data, "pixel_scales", 0.1)
+
+    # The rotation utility operates on and returns a plain 2D ndarray, but the
+    # clocker requires an `Array2D`, so the result is wrapped back up.
+    pre_cti_data = Array2D.no_mask(
+        values=layout_util.rotate_array_via_roe_corner_from(
+            array=np.asarray(
+                pre_cti_data.native if hasattr(pre_cti_data, "native") else pre_cti_data
+            ),
+            roe_corner=roe_corner,
+        ),
+        pixel_scales=pixel_scales,
+    ).native
 
     """
     The `Clocker` models the CCDPhase read-out, including CTI.
@@ -262,6 +277,9 @@ def add_cti_to_pre_cti_data(
 
     post_cti_data = clocker.add_cti(data=pre_cti_data, cti=cti)
 
-    return layout_util.rotate_array_via_roe_corner_from(
-        array=post_cti_data, roe_corner=roe_corner
-    )
+    return Array2D.no_mask(
+        values=layout_util.rotate_array_via_roe_corner_from(
+            array=np.asarray(post_cti_data), roe_corner=roe_corner
+        ),
+        pixel_scales=pixel_scales,
+    ).native

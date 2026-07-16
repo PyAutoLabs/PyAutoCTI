@@ -19,7 +19,7 @@ class SimulatorDataset1D(SimulatorImaging):
         pixel_scales: aa.type.PixelScales,
         norm: float,
         read_noise: Optional[float] = None,
-        add_poisson_noise: bool = False,
+        add_poisson_noise_to_data: bool = False,
         charge_noise: Optional[float] = None,
         noise_if_add_noise_false: float = 0.1,
         noise_seed: int = -1,
@@ -36,7 +36,7 @@ class SimulatorDataset1D(SimulatorImaging):
 
         super().__init__(
             exposure_time=1.0,
-            add_poisson_noise=add_poisson_noise,
+            add_poisson_noise_to_data=add_poisson_noise_to_data,
             noise_if_add_noise_false=noise_if_add_noise_false,
             noise_seed=noise_seed,
         )

@@ -6,7 +6,7 @@ CCDPhase:
     width_modifier:
       type: Absolute
       value: 0.2
-    gaussian_limits:
+    limits:
       lower: 0.0
       upper: 1.0
   well_fill_power:
@@ -16,7 +16,7 @@ CCDPhase:
     width_modifier:
       type: Absolute
       value: 0.2
-    gaussian_limits:
+    limits:
       lower: 0.0
       upper: 1.0
   well_notch_depth:
@@ -26,7 +26,7 @@ CCDPhase:
     width_modifier:
       type: Absolute
       value: 0.2
-    gaussian_limits:
+    limits:
       lower: 0.0
       upper: 1.0
   first_electron_fill:

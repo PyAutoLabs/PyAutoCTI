@@ -225,7 +225,16 @@ class Extract2D:
         region_list = settings.region_list_from(region_list=region_list)
 
         arr_list = [array.native[region.slice] for region in region_list]
-        mask_2d_list = [array.mask[region.slice] for region in region_list]
+
+        # Slicing a Mask2D returns a raw ndarray, so a Mask2D is rebuilt from it
+        # with the parent array's pixel scales.
+        mask_2d_list = [
+            aa.Mask2D(
+                mask=np.asarray(array.mask)[region.slice],
+                pixel_scales=array.pixel_scales,
+            )
+            for region in region_list
+        ]
 
         return [
             aa.Array2D(values=arr, mask=mask_2d).native

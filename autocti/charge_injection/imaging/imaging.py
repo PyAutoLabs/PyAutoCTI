@@ -3,6 +3,7 @@ from pathlib import Path
 from typing import Optional, List, Dict, Union
 
 import autoarray as aa
+from autoconf import fitsable
 
 from autocti.charge_injection.imaging.settings import SettingsImagingCI
 from autocti.charge_injection.layout import Layout2DCI
@@ -243,7 +244,7 @@ class ImagingCI(aa.Imaging):
             )
 
         if noise_map_path is not None:
-            noise_map = aa.util.array_2d.numpy_array_2d_via_fits_from(
+            noise_map = fitsable.ndarray_via_fits_from(
                 file_path=noise_map_path, hdu=noise_map_hdu
             )
         else:
@@ -317,17 +318,27 @@ class ImagingCI(aa.Imaging):
             If `True`, the .fits files are overwritten if they already exist, if `False` they are not and an
             exception is raised.
         """
-        self.data.output_to_fits(file_path=data_path, overwrite=overwrite)
+        fitsable.output_to_fits(
+            values=np.asarray(self.data.native), file_path=data_path, overwrite=overwrite
+        )
 
         if noise_map_path is not None:
-            self.noise_map.output_to_fits(file_path=noise_map_path, overwrite=overwrite)
+            fitsable.output_to_fits(
+                values=np.asarray(self.noise_map.native),
+                file_path=noise_map_path,
+                overwrite=overwrite,
+            )
 
         if pre_cti_data_path is not None:
-            self.pre_cti_data.output_to_fits(
-                file_path=pre_cti_data_path, overwrite=overwrite
+            fitsable.output_to_fits(
+                values=np.asarray(self.pre_cti_data.native),
+                file_path=pre_cti_data_path,
+                overwrite=overwrite,
             )
 
         if self.cosmic_ray_map is not None and cosmic_ray_map_path is not None:
-            self.cosmic_ray_map.output_to_fits(
-                file_path=cosmic_ray_map_path, overwrite=overwrite
+            fitsable.output_to_fits(
+                values=np.asarray(self.cosmic_ray_map.native),
+                file_path=cosmic_ray_map_path,
+                overwrite=overwrite,
             )

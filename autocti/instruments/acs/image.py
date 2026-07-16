@@ -9,6 +9,7 @@ from autocti.instruments.acs.array_2d import Array2DACS
 from autocti.instruments.acs.header import HeaderACS
 
 from autocti.instruments.acs import acs_util
+from autoconf import fitsable
 
 logging.basicConfig()
 logger = logging.getLogger()
@@ -64,8 +65,8 @@ class ImageACS(Array2DACS):
             quadrant_letter=quadrant_letter
         )
 
-        header_sci_obj = array_2d_util.header_obj_from(file_path=file_path, hdu=0)
-        header_hdu_obj = array_2d_util.header_obj_from(file_path=file_path, hdu=hdu)
+        header_sci_obj = fitsable.header_obj_from(file_path=file_path, hdu=0)
+        header_hdu_obj = fitsable.header_obj_from(file_path=file_path, hdu=hdu)
 
         header = HeaderACS(
             header_sci_obj=header_sci_obj,
@@ -84,7 +85,7 @@ class ImageACS(Array2DACS):
                 f"The file {file_path} does not point to a valid HST ACS dataset."
             )
 
-        array = array_2d_util.numpy_array_2d_via_fits_from(
+        array = fitsable.ndarray_via_fits_from(
             file_path=file_path, hdu=hdu, do_not_scale_image_data=True
         )
 
@@ -97,14 +98,14 @@ class ImageACS(Array2DACS):
                 file_dir = os.path.split(file_path)[0]
                 bias_file_path = path.join(file_dir, header.bias_file)
 
-            bias = array_2d_util.numpy_array_2d_via_fits_from(
+            bias = fitsable.ndarray_via_fits_from(
                 file_path=bias_file_path, hdu=hdu, do_not_scale_image_data=True
             )
 
-            header_sci_obj = array_2d_util.header_obj_from(
+            header_sci_obj = fitsable.header_obj_from(
                 file_path=bias_file_path, hdu=0
             )
-            header_hdu_obj = array_2d_util.header_obj_from(
+            header_hdu_obj = fitsable.header_obj_from(
                 file_path=bias_file_path, hdu=hdu
             )
 

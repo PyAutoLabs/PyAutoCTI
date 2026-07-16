@@ -3,6 +3,7 @@ from pathlib import Path
 from typing import Optional, Dict, Union
 
 import autoarray as aa
+from autoconf import fitsable
 
 from autocti import exc
 from autocti.extract.settings import SettingsExtract
@@ -25,6 +26,10 @@ class Dataset1D(aa.AbstractDataset):
         self.noise_map = noise_map
         self.pre_cti_data = pre_cti_data
         self.layout = layout
+
+        # CTI datasets perform no grid calculations; `FitDataset` accesses
+        # `dataset.grids.*` unconditionally, so an empty interface is attached.
+        self.grids = aa.GridsInterface()
 
         if fpr_value is None:
             fpr_value = np.round(
@@ -117,7 +122,7 @@ class Dataset1D(aa.AbstractDataset):
         )
 
         if noise_map_path is not None:
-            noise_map = aa.util.array_1d.numpy_array_1d_via_fits_from(
+            noise_map = fitsable.ndarray_via_fits_from(
                 file_path=noise_map_path, hdu=noise_map_hdu
             ).astype("float")
         else:
@@ -176,10 +181,18 @@ class Dataset1D(aa.AbstractDataset):
             If `True`, the .fits files are overwritten if they already exist, if `False` they are not and an
             exception is raised.
         """
-        self.data.output_to_fits(file_path=data_path, overwrite=overwrite)
-        self.noise_map.output_to_fits(file_path=noise_map_path, overwrite=overwrite)
-        self.pre_cti_data.output_to_fits(
-            file_path=pre_cti_data_path, overwrite=overwrite
+        fitsable.output_to_fits(
+            values=np.asarray(self.data.native), file_path=data_path, overwrite=overwrite
+        )
+        fitsable.output_to_fits(
+            values=np.asarray(self.noise_map.native),
+            file_path=noise_map_path,
+            overwrite=overwrite,
+        )
+        fitsable.output_to_fits(
+            values=np.asarray(self.pre_cti_data.native),
+            file_path=pre_cti_data_path,
+            overwrite=overwrite,
         )
 
     @classmethod

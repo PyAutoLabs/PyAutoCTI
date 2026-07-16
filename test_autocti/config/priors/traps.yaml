@@ -1,6 +1,6 @@
 TrapInstantCapture:
   density:
-    gaussian_limits:
+    limits:
       lower: 0.0
       upper: inf
     lower_limit: 0.0
@@ -10,7 +10,7 @@ TrapInstantCapture:
       type: Relative
       value: 0.5
   release_timescale:
-    gaussian_limits:
+    limits:
       lower: 0.0
       upper: inf
     lower_limit: 0.0
