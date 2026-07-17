@@ -498,10 +498,10 @@ class Extract2D:
         array = array.native
 
         for arr, region in zip(array_2d_list, region_list):
-            array[
-                region.y0 : region.y1, region.x0 : region.x1
-            ] = aa.preprocess.data_with_gaussian_noise_added(
-                data=arr, sigma=noise_sigma, seed=noise_seed
+            array[region.y0 : region.y1, region.x0 : region.x1] = (
+                aa.preprocess.data_with_gaussian_noise_added(
+                    data=arr, sigma=noise_sigma, seed=noise_seed
+                )
             )
 
         return array

@@ -226,6 +226,9 @@ def subplot_fit_list(
     _pf = (lambda t: f"{title_prefix.rstrip()} {t}") if title_prefix else (lambda t: t)
 
     n = len(fit_list)
+    if n == 0:
+        raise ValueError("An empty list was passed to a *_list plot function.")
+
     cols = min(n, 3)
     rows = (n + cols - 1) // cols
 
@@ -279,6 +282,9 @@ def subplot_fit_region_list(
         output_format = output_format[0]
 
     n = len(fit_list)
+    if n == 0:
+        raise ValueError("An empty list was passed to a *_list plot function.")
+
     cols = min(n, 3)
     rows = (n + cols - 1) // cols
 

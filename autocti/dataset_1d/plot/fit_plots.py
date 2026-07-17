@@ -163,6 +163,9 @@ def subplot_fit_list(
     suffix = f"_{region}" if region is not None else ""
 
     n = len(fit_list)
+    if n == 0:
+        raise ValueError("An empty list was passed to a *_list plot function.")
+
     cols = min(n, 3)
     rows = (n + cols - 1) // cols
 

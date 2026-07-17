@@ -89,6 +89,7 @@ def _imaging_ci_list_from(fit: af.Fit, use_dataset_full: bool = False):
             cosmic_ray_map=cosmic_ray_map,
             settings_dict=settings_dict,
             layout=layout,
+            check_noise_map=False,
         )
 
         dataset_list.append(dataset.apply_mask(mask=mask))

@@ -7,6 +7,8 @@ from autocti.charge_injection.plot import imaging_ci_plots
 from autocti.charge_injection.plot import fit_ci_plots
 from autocti.model.plotter import Plotter, plot_setting
 
+from autoarray import exc as aa_exc
+
 from autocti import exc
 
 logger = logging.getLogger(__name__)
@@ -85,7 +87,16 @@ class PlotterImagingCI(Plotter):
                     output_format=self.fmt,
                     title_prefix=self.title_prefix,
                 )
-            except (exc.PlottingException, exc.RegionException, TypeError, ValueError):
+            except (
+                exc.PlottingException,
+                exc.RegionException,
+                aa_exc.ArrayException,
+                TypeError,
+                ValueError,
+            ):
+                # Trimmed datasets (e.g. via `apply_settings`) have layouts whose
+                # extraction regions no longer match the array shape, making the
+                # binned-FPR diagnostic ill-defined.
                 logger.info(
                     "VISUALIZATION - Could not visualize the ImagingCI binned data"
                 )
