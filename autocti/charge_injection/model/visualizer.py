@@ -4,6 +4,8 @@ import logging
 
 import autofit as af
 
+from autocti.charge_injection.model.plotter import PlotterImagingCI
+
 logger = logging.getLogger(__name__)
 
 
@@ -28,25 +30,11 @@ class VisualizerImagingCI(af.Visualizer):
             The model object, which includes model components representing the galaxies that are fitted to
             the imaging data.
         """
-        # Imported lazily: the PlotterInterface stack still targets the removed
-        # autoarray Plotter API and is rewritten on the new matplotlib function
-        # API in Phase 1 of the CTI resurrection epic (PyAutoCTI#82).
-        try:
-            from autocti.charge_injection.model.plotter_interface import (
-                PlotterInterfaceImagingCI,
-            )
-        except ImportError:
-            logger.warning(
-                "PyAutoCTI visualization is disabled until the Phase 1 "
-                "Plotter->matplotlib migration (PyAutoCTI#82)."
-            )
-            return
-
 
         if conf.instance["visualize"]["plots"]["combined_only"]:
             return
 
-        visualizer = PlotterInterfaceImagingCI(image_path=paths.image_path)
+        visualizer = PlotterImagingCI(image_path=paths.image_path)
 
         region_list = analysis.region_list_from(model=model)
 
@@ -70,24 +58,10 @@ class VisualizerImagingCI(af.Visualizer):
         paths: af.AbstractPaths,
         model: af.AbstractPriorModel,
     ):
-        # Imported lazily: the PlotterInterface stack still targets the removed
-        # autoarray Plotter API and is rewritten on the new matplotlib function
-        # API in Phase 1 of the CTI resurrection epic (PyAutoCTI#82).
-        try:
-            from autocti.charge_injection.model.plotter_interface import (
-                PlotterInterfaceImagingCI,
-            )
-        except ImportError:
-            logger.warning(
-                "PyAutoCTI visualization is disabled until the Phase 1 "
-                "Plotter->matplotlib migration (PyAutoCTI#82)."
-            )
-            return
-
         if analyses is None:
             return
 
-        visualizer = PlotterInterfaceImagingCI(image_path=paths.image_path)
+        visualizer = PlotterImagingCI(image_path=paths.image_path)
 
         region_list = analyses[0].region_list_from(model=model)
 
@@ -157,20 +131,6 @@ class VisualizerImagingCI(af.Visualizer):
             If True the visualization is being performed midway through the non-linear search before it is finished,
             which may change which images are output.
         """
-        # Imported lazily: the PlotterInterface stack still targets the removed
-        # autoarray Plotter API and is rewritten on the new matplotlib function
-        # API in Phase 1 of the CTI resurrection epic (PyAutoCTI#82).
-        try:
-            from autocti.charge_injection.model.plotter_interface import (
-                PlotterInterfaceImagingCI,
-            )
-        except ImportError:
-            logger.warning(
-                "PyAutoCTI visualization is disabled until the Phase 1 "
-                "Plotter->matplotlib migration (PyAutoCTI#82)."
-            )
-            return
-
 
         if conf.instance["visualize"]["plots"]["combined_only"]:
             return
@@ -178,7 +138,7 @@ class VisualizerImagingCI(af.Visualizer):
         fit = analysis.fit_via_instance_from(instance=instance)
         region_list = analysis.region_list_from(model=instance)
 
-        visualizer = PlotterInterfaceImagingCI(image_path=paths.image_path)
+        visualizer = PlotterImagingCI(image_path=paths.image_path)
         visualizer.fit(fit=fit, during_analysis=during_analysis)
         visualizer.fit_1d_regions(
             fit=fit, during_analysis=during_analysis, region_list=region_list
@@ -206,20 +166,6 @@ class VisualizerImagingCI(af.Visualizer):
         instance: af.ModelInstance,
         during_analysis: bool,
     ):
-        # Imported lazily: the PlotterInterface stack still targets the removed
-        # autoarray Plotter API and is rewritten on the new matplotlib function
-        # API in Phase 1 of the CTI resurrection epic (PyAutoCTI#82).
-        try:
-            from autocti.charge_injection.model.plotter_interface import (
-                PlotterInterfaceImagingCI,
-            )
-        except ImportError:
-            logger.warning(
-                "PyAutoCTI visualization is disabled until the Phase 1 "
-                "Plotter->matplotlib migration (PyAutoCTI#82)."
-            )
-            return
-
         if analyses is None:
             return
 
@@ -236,7 +182,7 @@ class VisualizerImagingCI(af.Visualizer):
 
         region_list = analyses[0].region_list_from(model=instance)
 
-        visualizer = PlotterInterfaceImagingCI(image_path=paths.image_path)
+        visualizer = PlotterImagingCI(image_path=paths.image_path)
         visualizer.fit_combined(fit_list=fit_list, during_analysis=during_analysis)
         visualizer.fit_1d_regions_combined(
             fit_list=fit_list,

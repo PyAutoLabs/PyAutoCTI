@@ -22,13 +22,13 @@ stack imports autocti — it is a leaf like PyAutoLens.
 This repo was unmaintained for ~2 years and is being brought back into the
 ecosystem via the CTI resurrection epic
 ([PyAutoCTI#82](https://github.com/PyAutoLabs/PyAutoCTI/issues/82)). Phase 0
-(importable + unit tests green on the current stack) is complete. **The
-visualization layer (`autocti/plot/`, `*/plot/*_plotters.py`,
-`*/model/plotter_interface.py`) is quarantined**: it still targets the removed
-autoarray Plotter API and is rewritten on the matplotlib function API
-(mirroring PyAutoGalaxy) in Phase 1. Until then `autocti.plot` is not
-importable, `Analysis` visualization no-ops with a logged warning, and the
-plot tests are skipped via `test_autocti/conftest.py`.
+(importable + unit tests green on the current stack) and Phase 1 (the
+visualization layer rewritten on the matplotlib **function API**, mirroring
+PyAutoGalaxy: per-domain `plot/*_plots.py` function modules, config-gated
+`model/plotter.py` orchestrators, `autocti/util/plot_utils.py` helpers) are
+complete. Remaining: Phase 2 autofit sync (5 aggregator tests skipped pending
+the `AnalysisFactor`/`FactorGraphModel` port), Phase 3 CI + ecosystem
+plumbing, Phase 4 workspace update, Phase 5 workspace_test rebuild + release.
 
 ## arcticpy (read before installing)
 
