@@ -32,6 +32,11 @@ def test__dataset_gen_from__analysis_has_single_dataset(
     clean(database_file=database_file)
 
 
+@pytest.mark.skip(
+    reason="Analysis summing (analysis + analysis) was removed from PyAutoFit in favour "
+    "of AnalysisFactor/FactorGraphModel; these tests are ported in Phase 2 of the CTI "
+    "resurrection epic (PyAutoCTI#82)."
+)
 def test__dataset_gen_from__analysis_has_multi_dataset(
     imaging_ci_7x7, parallel_clocker_2d, samples_2d, model_2d
 ):
@@ -61,6 +66,11 @@ def test__dataset_gen_from__analysis_has_multi_dataset(
     clean(database_file=database_file)
 
 
+@pytest.mark.skip(
+    reason="Analysis summing (analysis + analysis) was removed from PyAutoFit in favour "
+    "of AnalysisFactor/FactorGraphModel; these tests are ported in Phase 2 of the CTI "
+    "resurrection epic (PyAutoCTI#82)."
+)
 def test__dataset_gen_from__analysis_use_dataset_full(
     imaging_ci_7x7, parallel_clocker_2d, samples_2d, model_2d
 ):

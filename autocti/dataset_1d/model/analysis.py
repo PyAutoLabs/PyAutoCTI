@@ -1,8 +1,10 @@
+import numpy as np
 from typing import List, Optional
 
 from autoconf.dictable import to_dict
 
 import autofit as af
+from autoconf.fitsable import hdu_list_for_output_from
 
 from autocti.dataset_1d.dataset_1d.dataset_1d import Dataset1D
 from autocti.dataset_1d.fit import FitDataset1D
@@ -144,23 +146,17 @@ class AnalysisDataset1D(AnalysisCTI):
 
         def output_dataset(dataset, prefix):
             paths.save_fits(
-                name="data",
-                hdu=dataset.data.hdu_for_output,
-                prefix=prefix,
-            )
-            paths.save_fits(
-                name="noise_map",
-                hdu=dataset.noise_map.hdu_for_output,
-                prefix=prefix,
-            )
-            paths.save_fits(
-                name="pre_cti_data",
-                hdu=dataset.pre_cti_data.hdu_for_output,
-                prefix=prefix,
-            )
-            paths.save_fits(
-                name="mask",
-                hdu=dataset.mask.hdu_for_output,
+                name="dataset",
+                fits=hdu_list_for_output_from(
+                    values_list=[
+                        np.asarray(dataset.mask).astype("float"),
+                        np.asarray(dataset.data.native),
+                        np.asarray(dataset.noise_map.native),
+                        np.asarray(dataset.pre_cti_data.native),
+                    ],
+                    ext_name_list=["mask", "data", "noise_map", "pre_cti_data"],
+                    header_dict=dataset.mask.header_dict,
+                ),
                 prefix=prefix,
             )
             paths.save_json(

@@ -1,6 +1,7 @@
 from functools import partial
 
 import autoarray as aa
+from autoconf.fitsable import ndarray_via_hdu_from
 import autofit as af
 
 from autocti.charge_injection.imaging.imaging import ImagingCI
@@ -56,32 +57,39 @@ def _imaging_ci_list_from(fit: af.Fit, use_dataset_full: bool = False):
     for fit in fit_list:
         layout = fit.value(name=f"{folder}.layout")
 
-        data = aa.Array2D.from_primary_hdu(primary_hdu=fit.value(name=f"{folder}.data"))
-        noise_map = aa.Array2D.from_primary_hdu(
-            primary_hdu=fit.value(name=f"{folder}.noise_map")
+        hdu_list = fit.value(name=f"{folder}.dataset")
+
+        pixel_scales = (
+            hdu_list[0].header["PIXSCAY"],
+            hdu_list[0].header["PIXSCAX"],
         )
-        pre_cti_data = aa.Array2D.from_primary_hdu(
-            primary_hdu=fit.value(name=f"{folder}.pre_cti_data")
+
+        mask = aa.Mask2D(
+            mask=ndarray_via_hdu_from(hdu_list[0]).astype("bool"),
+            pixel_scales=pixel_scales,
         )
-        try:
-            cosmic_ray_map = aa.Array2D.from_primary_hdu(
-                primary_hdu=fit.value(name=f"{folder}.cosmic_ray_map")
+
+        def values_from(hdu: int) -> aa.Array2D:
+            return aa.Array2D.no_mask(
+                values=ndarray_via_hdu_from(hdu_list[hdu]),
+                pixel_scales=pixel_scales,
             )
-        except AttributeError:
+
+        try:
+            cosmic_ray_map = values_from(hdu=4)
+        except IndexError:
             cosmic_ray_map = None
 
         settings_dict = fit.value(name="dataset.settings_dict")
 
         dataset = ImagingCI(
-            data=data,
-            noise_map=noise_map,
-            pre_cti_data=pre_cti_data,
+            data=values_from(hdu=1),
+            noise_map=values_from(hdu=2),
+            pre_cti_data=values_from(hdu=3),
             cosmic_ray_map=cosmic_ray_map,
             settings_dict=settings_dict,
             layout=layout,
         )
-
-        mask = aa.Mask2D.from_primary_hdu(primary_hdu=fit.value(name=f"{folder}.mask"))
 
         dataset_list.append(dataset.apply_mask(mask=mask))
 

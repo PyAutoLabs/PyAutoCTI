@@ -1,3 +1,4 @@
+import pytest
 import autocti as ac
 
 from test_autocti.aggregator.conftest import clean, aggregator_from
@@ -33,6 +34,11 @@ def test__fit_imaging_ci_randomly_drawn_via_pdf_gen_from(
     clean(database_file=database_file)
 
 
+@pytest.mark.skip(
+    reason="Analysis summing (analysis + analysis) was removed from PyAutoFit in favour "
+    "of AnalysisFactor/FactorGraphModel; these tests are ported in Phase 2 of the CTI "
+    "resurrection epic (PyAutoCTI#82)."
+)
 def test__fit_imaging_ci_randomly_drawn_via_pdf_gen_from__multi_analysis(
     imaging_ci_7x7, parallel_clocker_2d, samples_2d, model_2d
 ):

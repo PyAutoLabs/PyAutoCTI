@@ -2,6 +2,7 @@ import numpy as np
 from typing import List, Tuple
 
 import autoarray as aa
+from autoconf import fitsable
 
 from autoarray import exc
 
@@ -226,7 +227,7 @@ class Mask2D(aa.Mask2D):
                 pixel_scales = (float(pixel_scales), float(pixel_scales))
 
         mask = cls.manual(
-            mask=aa.util.array_2d.numpy_array_2d_via_fits_from(
+            mask=fitsable.ndarray_via_fits_from(
                 file_path=file_path, hdu=hdu
             ),
             pixel_scales=pixel_scales,

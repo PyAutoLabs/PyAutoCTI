@@ -105,8 +105,10 @@ def test__add_cti_to_pre_cti_data():
     assert array.native[199, 100] > 0.0
     assert array.native[200, 100] == 0.0
 
-    pre_cti_data = array.native[:, 100:101]
-    pre_cti_data.mask = pre_cti_data.mask[:, 100:101]
+    pre_cti_data = ac.Array2D.no_mask(
+        values=np.asarray(array.native)[:, 100:101],
+        pixel_scales=array.pixel_scales,
+    )
 
     post_cti_data = ou_sim_ci.add_cti_to_pre_cti_data(
         pre_cti_data=pre_cti_data,
@@ -136,8 +138,10 @@ def test__add_cti_to_pre_cti_data():
     assert array.native[1886, 100] > 0.0
     assert array.native[1885, 100] == 0.0
 
-    pre_cti_data = array.native[:, 100:101]
-    pre_cti_data.mask = pre_cti_data.mask[:, 100:101]
+    pre_cti_data = ac.Array2D.no_mask(
+        values=np.asarray(array.native)[:, 100:101],
+        pixel_scales=array.pixel_scales,
+    )
 
     post_cti_data = ou_sim_ci.add_cti_to_pre_cti_data(
         pre_cti_data=pre_cti_data,
@@ -167,8 +171,10 @@ def test__add_cti_to_pre_cti_data():
     assert array.native[199, 100] > 0.0
     assert array.native[200, 100] == 0.0
 
-    pre_cti_data = array.native[:, 100:101]
-    pre_cti_data.mask = pre_cti_data.mask[:, 100:101]
+    pre_cti_data = ac.Array2D.no_mask(
+        values=np.asarray(array.native)[:, 100:101],
+        pixel_scales=array.pixel_scales,
+    )
 
     post_cti_data = ou_sim_ci.add_cti_to_pre_cti_data(
         pre_cti_data=pre_cti_data,
@@ -198,8 +204,10 @@ def test__add_cti_to_pre_cti_data():
     assert array.native[1886, 100] > 0.0
     assert array.native[1885, 100] == 0.0
 
-    pre_cti_data = array.native[:, 100:101]
-    pre_cti_data.mask = pre_cti_data.mask[:, 100:101]
+    pre_cti_data = ac.Array2D.no_mask(
+        values=np.asarray(array.native)[:, 100:101],
+        pixel_scales=array.pixel_scales,
+    )
 
     post_cti_data = ou_sim_ci.add_cti_to_pre_cti_data(
         pre_cti_data=pre_cti_data,

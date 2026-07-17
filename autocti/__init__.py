@@ -71,7 +71,10 @@ from .clocker.one_d import Clocker1D
 from .clocker.two_d import Clocker2D
 from . import aggregator as agg
 from . import util
-from . import plot
+
+# `from . import plot` is quarantined: the Plotter object stack targets the
+# removed autoarray Plotter API and is rewritten on the new matplotlib function
+# API in Phase 1 of the CTI resurrection epic (PyAutoCTI#82).
 from . import mock as m  # noqa
 
 from autoconf import conf

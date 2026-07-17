@@ -6,7 +6,7 @@ TrapInstantCapture:
     width_modifier:
       type: Relative
       value: 0.5
-    gaussian_limits:
+    limits:
       lower: 0.0
       upper: inf
   release_timescale:
@@ -16,7 +16,7 @@ TrapInstantCapture:
     width_modifier:
       type: Relative
       value: 0.5
-    gaussian_limits:
+    limits:
       lower: 0.0
       upper: inf
   fractional_volume_full_exposed:
@@ -33,7 +33,7 @@ TrapInstantCaptureContinuum:
     width_modifier:
       type: Relative
       value: 0.5
-    gaussian_limits:
+    limits:
       lower: 0.0
       upper: inf
   release_timescale:
@@ -43,7 +43,7 @@ TrapInstantCaptureContinuum:
     width_modifier:
       type: Relative
       value: 0.5
-    gaussian_limits:
+    limits:
       lower: 0.0
       upper: inf
   release_timescale_sigma:
@@ -53,6 +53,6 @@ TrapInstantCaptureContinuum:
     width_modifier:
       type: Relative
       value: 0.5
-    gaussian_limits:
+    limits:
       lower: 0.0
       upper: inf

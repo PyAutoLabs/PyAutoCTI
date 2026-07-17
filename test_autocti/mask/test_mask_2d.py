@@ -3,6 +3,7 @@ from os import path
 import shutil
 
 import numpy as np
+from autoconf import fitsable
 import pytest
 import autocti as ac
 from autocti import exc
@@ -227,7 +228,10 @@ def test__load_and_output_mask_to_fits():
 
     os.makedirs(output_data_dir)
 
-    mask.output_to_fits(file_path=path.join(output_data_dir, "mask.fits"))
+    fitsable.output_to_fits(
+        values=np.asarray(mask).astype("float"),
+        file_path=path.join(output_data_dir, "mask.fits"),
+    )
 
     mask = ac.Mask2D.from_fits(
         file_path=path.join(output_data_dir, "mask.fits"),

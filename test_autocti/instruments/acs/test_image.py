@@ -1,4 +1,5 @@
 import numpy as np
+from autoconf import fitsable
 from astropy.io import fits
 import copy
 import shutil
@@ -440,14 +441,14 @@ def test__output_quadrants_to_fits(acs_ccd):
         overwrite=True,
     )
 
-    acs_ccd_output = ac.util.array_2d.numpy_array_2d_via_fits_from(
+    acs_ccd_output = fitsable.ndarray_via_fits_from(
         file_path=file_path, hdu=1, do_not_scale_image_data=True
     )
 
     assert acs_ccd_output[0, 0] == 10.0
     assert acs_ccd_output[0, -1] == 20.0
 
-    acs_ccd_output = ac.util.array_2d.numpy_array_2d_via_fits_from(
+    acs_ccd_output = fitsable.ndarray_via_fits_from(
         file_path=file_path, hdu=4, do_not_scale_image_data=True
     )
 
