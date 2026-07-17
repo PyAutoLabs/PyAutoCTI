@@ -328,6 +328,9 @@ def subplot_data_region_list(
         output_format = output_format[0]
 
     n = len(dataset_list)
+    if n == 0:
+        raise ValueError("An empty list was passed to a *_list plot function.")
+
     cols = min(n, 3)
     rows = (n + cols - 1) // cols
 

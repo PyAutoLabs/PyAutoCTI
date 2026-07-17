@@ -102,12 +102,8 @@ class ImageACS(Array2DACS):
                 file_path=bias_file_path, hdu=hdu, do_not_scale_image_data=True
             )
 
-            header_sci_obj = fitsable.header_obj_from(
-                file_path=bias_file_path, hdu=0
-            )
-            header_hdu_obj = fitsable.header_obj_from(
-                file_path=bias_file_path, hdu=hdu
-            )
+            header_sci_obj = fitsable.header_obj_from(file_path=bias_file_path, hdu=0)
+            header_hdu_obj = fitsable.header_obj_from(file_path=bias_file_path, hdu=hdu)
 
             bias_header = HeaderACS(
                 header_sci_obj=header_sci_obj,

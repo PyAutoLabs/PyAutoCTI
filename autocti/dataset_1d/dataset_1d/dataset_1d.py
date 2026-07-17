@@ -182,7 +182,9 @@ class Dataset1D(aa.AbstractDataset):
             exception is raised.
         """
         fitsable.output_to_fits(
-            values=np.asarray(self.data.native), file_path=data_path, overwrite=overwrite
+            values=np.asarray(self.data.native),
+            file_path=data_path,
+            overwrite=overwrite,
         )
         fitsable.output_to_fits(
             values=np.asarray(self.noise_map.native),

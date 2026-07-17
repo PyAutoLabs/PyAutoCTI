@@ -139,12 +139,15 @@ class VisualizerDataset1D(af.Visualizer):
         paths: af.DirectoryPaths,
         instance: af.ModelInstance,
         during_analysis: bool,
+        quick_update: bool = False,
     ):
         if analyses is None:
             return
 
         fit_list = [
-            analysis.fit_via_instance_from(instance=instance) for analysis in analyses
+            # The factor graph passes one instance per analysis factor.
+            analysis.fit_via_instance_from(instance=instance_single)
+            for analysis, instance_single in zip(analyses, instance)
         ]
 
         fpr_value_list = [fit.dataset.fpr_value for fit in fit_list]
@@ -167,9 +170,9 @@ class VisualizerDataset1D(af.Visualizer):
         if analyses[0].dataset_full is not None:
             fit_full_list = [
                 analysis.fit_via_instance_and_dataset_from(
-                    instance=instance, dataset=analysis.dataset_full
+                    instance=instance_single, dataset=analysis.dataset_full
                 )
-                for analysis in analyses
+                for analysis, instance_single in zip(analyses, instance)
             ]
 
             fit_full_list = analyses[0].in_ascending_fpr_order_from(

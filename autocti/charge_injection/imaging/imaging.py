@@ -24,8 +24,11 @@ class ImagingCI(aa.Imaging):
         noise_scaling_map_dict: Optional[Dict] = None,
         fpr_value: Optional[float] = None,
         settings_dict: Optional[Dict] = None,
+        check_noise_map: bool = True,
     ):
-        super().__init__(data=data, noise_map=noise_map)
+        super().__init__(
+            data=data, noise_map=noise_map, check_noise_map=check_noise_map
+        )
 
         self.data = self.data.native
         self.noise_map = self.noise_map.native
@@ -319,7 +322,9 @@ class ImagingCI(aa.Imaging):
             exception is raised.
         """
         fitsable.output_to_fits(
-            values=np.asarray(self.data.native), file_path=data_path, overwrite=overwrite
+            values=np.asarray(self.data.native),
+            file_path=data_path,
+            overwrite=overwrite,
         )
 
         if noise_map_path is not None:

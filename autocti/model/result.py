@@ -22,14 +22,27 @@ class Result(result.Result):
         )
 
     @property
+    def analysis_unwrapped(self):
+        """
+        The CTI analysis this result was inferred from.
+
+        A multi-dataset fit via a factor graph gives each child result an
+        `AnalysisFactor` wrapper as its analysis, which does not delegate
+        attribute access to the analysis it wraps — so it is unwrapped here
+        (the same unwrap PyAutoFit performs when dispatching combined
+        visualization).
+        """
+        return getattr(self.analysis, "analysis", self.analysis)
+
+    @property
     def clocker(self):
-        return self.analysis.clocker
+        return self.analysis_unwrapped.clocker
 
 
 class ResultDataset(Result):
     @property
     def max_log_likelihood_fit(self):
-        return self.analysis.fit_via_instance_from(instance=self.instance)
+        return self.analysis_unwrapped.fit_via_instance_from(instance=self.instance)
 
     @property
     def mask(self):
