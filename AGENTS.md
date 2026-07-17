@@ -26,9 +26,10 @@ ecosystem via the CTI resurrection epic
 visualization layer rewritten on the matplotlib **function API**, mirroring
 PyAutoGalaxy: per-domain `plot/*_plots.py` function modules, config-gated
 `model/plotter.py` orchestrators, `autocti/util/plot_utils.py` helpers) are
-complete. Remaining: Phase 2 autofit sync (5 aggregator tests skipped pending
-the `AnalysisFactor`/`FactorGraphModel` port), Phase 3 CI + ecosystem
-plumbing, Phase 4 workspace update, Phase 5 workspace_test rebuild + release.
+complete, as is Phase 2 (autofit sync: multi-dataset fits and the aggregator
+run through `af.AnalysisFactor`/`af.FactorGraphModel`; the test suite has no
+skips). Remaining: Phase 3 CI + ecosystem plumbing, Phase 4 workspace update,
+Phase 5 workspace_test rebuild + release.
 
 ## arcticpy (read before installing)
 
