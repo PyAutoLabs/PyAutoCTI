@@ -12,6 +12,30 @@ import autofit as af
 from autocti.aggregator.dataset_1d import _dataset_1d_list_from
 
 
+def _cti_list_from(source, total_datasets: int):
+    """
+    Extract one CTI model per dataset from a model instance.
+
+    A single-analysis instance exposes ``instance.cti`` directly; a factor-graph
+    instance (multi-dataset fit) is an indexed collection with one child
+    instance per factor.
+    """
+    if hasattr(source, "cti"):
+        return [source.cti] * total_datasets
+
+    # A factor-graph instance also carries the FactorGraphModel itself as a
+    # trailing child, so only children with a CTI model are taken.
+    cti_list = [child.cti for child in source if hasattr(child, "cti")]
+
+    if len(cti_list) != total_datasets:
+        raise ValueError(
+            f"The instance contains {len(cti_list)} CTI models but the fit has "
+            f"{total_datasets} datasets."
+        )
+
+    return cti_list
+
+
 def _fit_dataset_1d_list_from(
     fit: af.Fit,
     instance: Optional[af.ModelInstance] = None,
@@ -62,14 +86,14 @@ def _fit_dataset_1d_list_from(
         else:
             clocker_list = fit.child_values(name="clocker")
 
-    if instance is not None:
-        cti = instance.cti
-    else:
-        cti = fit.instance.cti
+    cti_list = _cti_list_from(
+        source=instance if instance is not None else fit.instance,
+        total_datasets=len(dataset_list),
+    )
 
     post_cti_data_list = [
         clocker.add_cti(data=dataset.pre_cti_data, cti=cti)
-        for dataset, clocker in zip(dataset_list, clocker_list)
+        for dataset, clocker, cti in zip(dataset_list, clocker_list, cti_list)
     ]
 
     return [

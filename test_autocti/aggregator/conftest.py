@@ -40,6 +40,31 @@ def aggregator_from(database_file, analysis, model, samples):
 
     clean(database_file=database_file)
 
+    if isinstance(analysis, (list, tuple)):
+        # Analysis summing was removed from PyAutoFit; multi-dataset fits are
+        # expressed as a factor graph with the model shared across factors.
+        # The samples are rebuilt against the global prior model, whose paths
+        # carry per-factor prefixes.
+        factor_list = [
+            af.AnalysisFactor(prior_model=model, analysis=analysis_single)
+            for analysis_single in analysis
+        ]
+        analysis = af.FactorGraphModel(*factor_list)
+        model = analysis.global_prior_model
+
+        sample_list = Sample.from_lists(
+            model=model,
+            parameter_lists=samples.parameter_lists,
+            log_likelihood_list=samples.log_likelihood_list,
+            log_prior_list=[0.0] * len(samples.log_likelihood_list),
+            weight_list=samples.weight_list,
+        )
+        samples = ac.m.MockSamples(
+            model=model,
+            sample_list=sample_list,
+            prior_means=[1.0] * model.prior_count,
+        )
+
     search = ac.m.MockSearch(
         samples=samples, result=ac.m.MockResult(model=model, samples=samples)
     )
