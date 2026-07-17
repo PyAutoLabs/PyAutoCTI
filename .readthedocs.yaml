@@ -1,0 +1,25 @@
+version: 2
+
+build:
+  os: ubuntu-22.04
+  tools:
+    python: "3.12"
+  apt_packages:
+    - libgsl-dev
+  jobs:
+    post_install:
+      # arcticpy is a source-only C++ sdist whose own requirements downgrade
+      # numpy below 2.0 — install numpy first, then build without deps.
+      - pip install numpy
+      - pip install arcticpy==2.6 --no-build-isolation --no-deps
+
+python:
+  install:
+    - method: pip
+      path: .
+      extra_requirements:
+        - docs
+
+sphinx:
+  configuration: docs/conf.py
+  fail_on_warning: false
