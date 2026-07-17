@@ -7,31 +7,25 @@ import autocti as ac
 from autofit import conf
 from autocti import fixtures
 
-# The Plotter object stack targets the removed autoarray Plotter API and is
-# rewritten on the new matplotlib function API in Phase 1 of the CTI
-# resurrection epic (PyAutoCTI#82); its tests are quarantined until then.
-collect_ignore_glob = [
-    "plot/*",
-    "*/plot/*",
-]
-collect_ignore = [
-    path.join("dataset_1d", "model", "test_plotter_interface_1d.py"),
-    path.join("charge_injection", "model", "test_plotter_interface_ci.py"),
-]
-
 
 class PlotPatch:
     def __init__(self):
         self.paths = []
 
     def __call__(self, path, *args, **kwargs):
-        self.paths.append(path)
+        self.paths.append(str(path))
 
 
 @pytest.fixture(name="plot_patch")
 def make_plot_patch(monkeypatch):
+    import matplotlib.figure
+    from unittest.mock import MagicMock
+
     plot_patch = PlotPatch()
     monkeypatch.setattr(pyplot, "savefig", plot_patch)
+    monkeypatch.setattr(matplotlib.figure.Figure, "savefig", plot_patch)
+    monkeypatch.setattr(pyplot, "tight_layout", lambda *a, **kw: None)
+    monkeypatch.setattr(pyplot, "colorbar", lambda *a, **kw: MagicMock())
     return plot_patch
 
 

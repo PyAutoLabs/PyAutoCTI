@@ -1,54 +1,49 @@
-from autofit.non_linear.plot.nest_plotters import NestPlotter
-from autofit.non_linear.plot.mcmc_plotters import MCMCPlotter
-from autofit.non_linear.plot.mle_plotters import MLEPlotter
+from autofit.non_linear.plot import (
+    corner_cornerpy,
+    corner_anesthetic,
+    subplot_parameters,
+    log_likelihood_vs_iteration,
+    output_figure,
+)
 
-from autoarray.plot.wrap.base import Axis
-from autoarray.plot.wrap.base import Units
-from autoarray.plot.wrap.base import Figure
-from autoarray.plot.wrap.base import Cmap
-from autoarray.plot.wrap.base import Colorbar
-from autoarray.plot.wrap.base import ColorbarTickParams
-from autoarray.plot.wrap.base import TickParams
-from autoarray.plot.wrap.base import YTicks
-from autoarray.plot.wrap.base import XTicks
-from autoarray.plot.wrap.base import Title
-from autoarray.plot.wrap.base import YLabel
-from autoarray.plot.wrap.base import XLabel
-from autoarray.plot.wrap.base import Legend
-from autoarray.plot.wrap.base import Output
+from autoarray.plot.array import plot_array
+from autoarray.plot.yx import plot_yx
+from autoarray.plot.utils import subplot_save
 
-from autoarray.plot.wrap.one_d import YXPlot
-from autoarray.plot.wrap.two_d import ArrayOverlay
-from autoarray.plot.wrap.two_d import GridScatter
-from autoarray.plot.wrap.two_d import GridPlot
-from autoarray.plot.wrap.two_d import VectorYXQuiver
-from autoarray.plot.wrap.two_d import PatchOverlay
-from autoarray.plot.wrap.two_d import VoronoiDrawer
-from autoarray.plot.wrap.two_d import OriginScatter
-from autoarray.plot.wrap.two_d import MaskScatter
-from autoarray.plot.wrap.two_d import BorderScatter
-from autoarray.plot.wrap.two_d import PositionsScatter
-from autoarray.plot.wrap.two_d import IndexScatter
-from autoarray.plot.wrap.two_d import MeshGridScatter
-from autoarray.plot.wrap.two_d import ParallelOverscanPlot
-from autoarray.plot.wrap.two_d import SerialPrescanPlot
-from autoarray.plot.wrap.two_d import SerialOverscanPlot
+from autocti.util.plot_utils import plot_cti_1d
 
-from autoarray.plot.mat_plot.one_d import MatPlot1D
-from autoarray.plot.include.one_d import Include1D
-from autoarray.plot.visuals.one_d import Visuals1D
-from autoarray.plot.mat_plot.two_d import MatPlot2D
-from autoarray.plot.include.two_d import Include2D
-from autoarray.plot.visuals.two_d import Visuals2D
+from autocti.dataset_1d.plot.dataset_1d_plots import (
+    figure_data as figure_dataset_1d_data,
+    subplot_dataset as subplot_dataset_1d,
+    subplot_dataset_list as subplot_dataset_1d_list,
+)
 
-from autoarray.structures.plot.structure_plotters import YX1DPlotter
-from autoarray.structures.plot.structure_plotters import YX1DPlotter as Array1DPlotter
-from autoarray.structures.plot.structure_plotters import Array2DPlotter
+from autocti.dataset_1d.plot.fit_plots import (
+    figure_fit as figure_fit_dataset_1d,
+    subplot_fit as subplot_fit_dataset_1d,
+    subplot_fit_list as subplot_fit_dataset_1d_list,
+    fits_fit as fits_fit_dataset_1d,
+)
 
-from autoarray.plot.multi_plotters import MultiFigurePlotter
-from autoarray.plot.multi_plotters import MultiYX1DPlotter
+from autocti.charge_injection.plot.imaging_ci_plots import (
+    figure_data_region as figure_imaging_ci_data_region,
+    figure_pre_cti_data_residual_map,
+    subplot_dataset as subplot_imaging_ci,
+    subplot_dataset_region as subplot_imaging_ci_region,
+    subplot_data_binned as subplot_imaging_ci_data_binned,
+    subplot_dataset_list as subplot_imaging_ci_list,
+    subplot_data_region_list as subplot_imaging_ci_data_region_list,
+)
 
-from autocti.dataset_1d.plot.dataset_1d_plotters import Dataset1DPlotter
-from autocti.dataset_1d.plot.fit_plotters import FitDataset1DPlotter
-from autocti.charge_injection.plot.imaging_ci_plotters import ImagingCIPlotter
-from autocti.charge_injection.plot.fit_ci_plotters import FitImagingCIPlotter
+from autocti.charge_injection.plot.fit_ci_plots import (
+    figure_fit_region as figure_fit_ci_region,
+    subplot_fit as subplot_fit_ci,
+    subplot_fit_region as subplot_fit_ci_region,
+    subplot_noise_scaling_map_dict,
+    subplot_fit_list as subplot_fit_ci_list,
+    subplot_fit_region_list as subplot_fit_ci_region_list,
+    fits_fit as fits_fit_ci,
+)
+
+from autocti.dataset_1d.model.plotter import PlotterDataset1D
+from autocti.charge_injection.model.plotter import PlotterImagingCI

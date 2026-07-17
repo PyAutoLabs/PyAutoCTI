@@ -2,6 +2,8 @@ import logging
 
 import autofit as af
 
+from autocti.dataset_1d.model.plotter import PlotterDataset1D
+
 logger = logging.getLogger(__name__)
 
 
@@ -26,23 +28,9 @@ class VisualizerDataset1D(af.Visualizer):
             The model object, which includes model components representing the galaxies that are fitted to
             the imaging data.
         """
-        # Imported lazily: the PlotterInterface stack still targets the removed
-        # autoarray Plotter API and is rewritten on the new matplotlib function
-        # API in Phase 1 of the CTI resurrection epic (PyAutoCTI#82).
-        try:
-            from autocti.dataset_1d.model.plotter_interface import (
-                PlotterInterfaceDataset1D,
-            )
-        except ImportError:
-            logger.warning(
-                "PyAutoCTI visualization is disabled until the Phase 1 "
-                "Plotter->matplotlib migration (PyAutoCTI#82)."
-            )
-            return
-
         region_list = analysis.region_list_from()
 
-        visualizer = PlotterInterfaceDataset1D(image_path=paths.image_path)
+        visualizer = PlotterDataset1D(image_path=paths.image_path)
         visualizer.dataset(dataset=analysis.dataset)
         visualizer.dataset_regions(dataset=analysis.dataset, region_list=region_list)
 
@@ -63,18 +51,7 @@ class VisualizerDataset1D(af.Visualizer):
         if analyses is None:
             return
 
-        try:
-            from autocti.dataset_1d.model.plotter_interface import (
-                PlotterInterfaceDataset1D,
-            )
-        except ImportError:
-            logger.warning(
-                "PyAutoCTI visualization is disabled until the Phase 1 "
-                "Plotter->matplotlib migration (PyAutoCTI#82)."
-            )
-            return
-
-        plotter = PlotterInterfaceDataset1D(image_path=paths.image_path)
+        plotter = PlotterDataset1D(image_path=paths.image_path)
 
         region_list = analyses[0].region_list_from()
 
@@ -137,20 +114,9 @@ class VisualizerDataset1D(af.Visualizer):
             If True the visualization is being performed midway through the non-linear search before it is finished,
             which may change which images are output.
         """
-        try:
-            from autocti.dataset_1d.model.plotter_interface import (
-                PlotterInterfaceDataset1D,
-            )
-        except ImportError:
-            logger.warning(
-                "PyAutoCTI visualization is disabled until the Phase 1 "
-                "Plotter->matplotlib migration (PyAutoCTI#82)."
-            )
-            return
-
         region_list = analysis.region_list_from()
 
-        visualizer = PlotterInterfaceDataset1D(image_path=paths.image_path)
+        visualizer = PlotterDataset1D(image_path=paths.image_path)
 
         fit = analysis.fit_via_instance_from(instance=instance)
         visualizer.fit(fit=fit, during_analysis=during_analysis)
@@ -177,17 +143,6 @@ class VisualizerDataset1D(af.Visualizer):
         if analyses is None:
             return
 
-        try:
-            from autocti.dataset_1d.model.plotter_interface import (
-                PlotterInterfaceDataset1D,
-            )
-        except ImportError:
-            logger.warning(
-                "PyAutoCTI visualization is disabled until the Phase 1 "
-                "Plotter->matplotlib migration (PyAutoCTI#82)."
-            )
-            return
-
         fit_list = [
             analysis.fit_via_instance_from(instance=instance) for analysis in analyses
         ]
@@ -201,7 +156,7 @@ class VisualizerDataset1D(af.Visualizer):
 
         region_list = analyses[0].region_list_from()
 
-        visualizer = PlotterInterfaceDataset1D(image_path=paths.image_path)
+        visualizer = PlotterDataset1D(image_path=paths.image_path)
         visualizer.fit_combined(fit_list=fit_list, during_analysis=during_analysis)
         visualizer.fit_region_combined(
             fit_list=fit_list,

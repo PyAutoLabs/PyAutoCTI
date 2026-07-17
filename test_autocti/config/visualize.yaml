@@ -6,30 +6,20 @@ general:
     symmetric_cmap_value: 100.0       # The vmin and vmax of all pre-cti data residual-maps.
     subplot_ascending_fpr: true       # If True, subplots showing FPR / EPER trails of many datasets are in ascending order of FPR value.
 plots:
+  subplot_format: [png]                     # Output format of all plots, can be png, pdf or both (e.g. [png, pdf]).
+  combined_only: false                      # If True, only the combined subplots of multi-dataset analyses are output (no per-dataset visualization).
   dataset:
-    data: true
-    data_logy: false
-    cosmic_ray_map: true
-    noise_map: false
-    noise_scaling_map_dict: false
-    pre_cti_data: true
-    signal_to_noise_map: false
-    subplot_dataset: true
+    subplot_dataset: true                   # Plot the subplot of all dataset quantities (2D for charge injection imaging, 1D for Dataset1D)?
+    subplot_dataset_regions: true           # Plot per-region binned 1D subplots (e.g. the parallel/serial FPR and EPER)?
+    data: true                              # Plot single 1D figures of the data extracted and binned over each region?
+    data_logy: true                         # Plot single 1D figures of the data over each region with a log10 y-axis?
+    data_binned: true                       # Plot the data binned over rows / columns with and without the FPR (charge injection only)?
+    fpr_non_uniformity: false               # Include the fpr_non_uniformity region in the per-region plots (charge injection only)?
   fit:
-    all_at_end_fits: false
-    all_at_end_png: true
-    chi_squared_map: false
-    data: true
-    data_logy: false
-    noise_map: false
-    noise_scaling_map_dict: false
-    normalized_residual_map: true
-    post_cti_data: true
-    pre_cti_data: true
-    residual_map: true
-    signal_to_noise_map: false
-    subplot_fit: true
-  other:
-    stochastic_histogram: false
-  positions:
-    image_with_positions: true
+    subplot_fit: true                       # Plot the subplot of all fit quantities (e.g. model data, residual-map, chi-squared map)?
+    subplot_fit_regions: true               # Plot per-region binned 1D fit subplots (e.g. the parallel/serial FPR and EPER)?
+    data: true                              # Plot single 1D figures of the fit data (with model overlay) over each region?
+    data_logy: true                         # Plot single 1D figures of the fit data over each region with a log10 y-axis?
+    residual_map: true                      # Plot single 1D figures of the residual map over each region?
+    residual_map_logy: true                 # Plot single 1D figures of the residual map over each region with a log10 y-axis?
+    fits_fit: true                          # Output a fit.fits file containing the model data, residual map, normalized residual map and chi-squared map?
