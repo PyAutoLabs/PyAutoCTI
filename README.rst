@@ -11,8 +11,8 @@ PyAutoCTI: Charge Transfer Inefficiency Modeling
 .. |Tests| image:: https://github.com/Jammy2211/PyAutoCTI/actions/workflows/main.yml/badge.svg
    :target: https://github.com/Jammy2211/PyAutoCTI/actions
 
-.. |Build| image:: https://github.com/Jammy2211/PyAutoBuild/actions/workflows/release.yml/badge.svg
-   :target: https://github.com/Jammy2211/PyAutoBuild/actions
+.. |Build| image:: https://github.com/PyAutoLabs/PyAutoHands/actions/workflows/release.yml/badge.svg
+   :target: https://github.com/PyAutoLabs/PyAutoHands/actions
 
 .. |code-style| image:: https://img.shields.io/badge/code%20style-black-000000.svg
     :target: https://github.com/psf/black
