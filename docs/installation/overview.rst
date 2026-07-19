@@ -35,7 +35,7 @@ Dependencies
 
 **PyAutoCTI** has the following dependencies:
 
-**PyAutoConf** https://github.com/rhayes777/PyAutoConf
+**PyAutoNerves** https://github.com/rhayes777/PyAutoNerves
 
 **PyAutoFit** https://github.com/rhayes777/PyAutoFit
 
