@@ -2,7 +2,7 @@ import pytest
 from os import path
 
 import autocti as ac
-from autoconf.dictable import output_to_json, from_json
+from autonerves.dictable import output_to_json, from_json
 
 
 def test__trap_all_list():

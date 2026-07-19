@@ -3,7 +3,7 @@ from pathlib import Path
 from typing import Optional, Dict, Union
 
 import autoarray as aa
-from autoconf import fitsable
+from autonerves import fitsable
 
 from autocti import exc
 from autocti.extract.settings import SettingsExtract

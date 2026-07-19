@@ -1,5 +1,5 @@
 import numpy as np
-from autoconf import fitsable
+from autonerves import fitsable
 from astropy.io import fits
 import copy
 import shutil

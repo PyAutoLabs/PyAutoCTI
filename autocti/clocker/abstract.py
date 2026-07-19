@@ -1,7 +1,7 @@
 from arcticpy import CCD
 from arcticpy import CCDPhase
 
-from autoconf.dictable import from_json, output_to_json
+from autonerves.dictable import from_json, output_to_json
 
 
 class AbstractClocker:

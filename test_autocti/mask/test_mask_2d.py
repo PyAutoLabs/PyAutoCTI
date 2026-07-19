@@ -3,7 +3,7 @@ from os import path
 import shutil
 
 import numpy as np
-from autoconf import fitsable
+from autonerves import fitsable
 import pytest
 import autocti as ac
 from autocti import exc

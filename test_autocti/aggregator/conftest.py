@@ -3,10 +3,10 @@ from os import path
 import os
 import shutil
 
-from autoconf import conf
+from autonerves import conf
 import autofit as af
 import autocti as ac
-from autoconf.conf import with_config
+from autonerves.conf import with_config
 from autofit.non_linear.samples import Sample
 
 

@@ -1,10 +1,10 @@
 import numpy as np
 from typing import List, Optional
 
-from autoconf.dictable import to_dict
+from autonerves.dictable import to_dict
 
 import autofit as af
-from autoconf.fitsable import hdu_list_for_output_from
+from autonerves.fitsable import hdu_list_for_output_from
 
 from autocti.dataset_1d.dataset_1d.dataset_1d import Dataset1D
 from autocti.dataset_1d.fit import FitDataset1D

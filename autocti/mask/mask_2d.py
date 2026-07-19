@@ -2,7 +2,7 @@ import numpy as np
 from typing import List, Tuple
 
 import autoarray as aa
-from autoconf import fitsable
+from autonerves import fitsable
 
 from autoarray import exc
 

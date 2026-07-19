@@ -9,7 +9,7 @@ from autocti.instruments.acs.array_2d import Array2DACS
 from autocti.instruments.acs.header import HeaderACS
 
 from autocti.instruments.acs import acs_util
-from autoconf import fitsable
+from autonerves import fitsable
 
 logging.basicConfig()
 logger = logging.getLogger()

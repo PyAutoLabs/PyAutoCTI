@@ -3,7 +3,7 @@ from typing import List, Optional
 
 import numpy as np
 
-from autoconf.fitsable import hdu_list_for_output_from
+from autonerves.fitsable import hdu_list_for_output_from
 from autoarray.plot.array import plot_array
 from autoarray.plot.utils import (
     subplots,
