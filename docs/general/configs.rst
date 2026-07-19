@@ -18,7 +18,7 @@ command (the path to the ``output`` folder where the results of a non-linear sea
 
 .. code-block:: bash
 
-    from autoconf import conf
+    from autonerves import conf
 
     conf.instance.push(
         config_path="path/to/config",

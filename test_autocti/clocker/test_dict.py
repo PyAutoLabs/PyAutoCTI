@@ -2,7 +2,7 @@ import os
 
 import pytest
 
-from autoconf.dictable import output_to_json, from_dict, from_json
+from autonerves.dictable import output_to_json, from_dict, from_json
 from autocti import Clocker2D
 
 

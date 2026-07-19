@@ -3,7 +3,7 @@ from typing import List
 
 import autofit as af
 import autoarray as aa
-from autoconf.fitsable import ndarray_via_hdu_from
+from autonerves.fitsable import ndarray_via_hdu_from
 
 from autocti.dataset_1d.dataset_1d.dataset_1d import Dataset1D
 

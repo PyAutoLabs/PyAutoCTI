@@ -33,7 +33,7 @@ You should get the following text:
     Author-email: Richard Massey <r.j.massey@durham.ac.uk>
     License:
     Location: /mnt/c/Users/Jammy/Code/PyAuto/arctic/python
-    Requires: autoconf, numpy
+    Requires: autonerves, numpy
     Required-by:
 
 If an error is raised when trying to install **arCTIc** you should first try to install it via `pip`:

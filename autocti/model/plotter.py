@@ -3,7 +3,7 @@ import os
 from pathlib import Path
 from typing import List, Union
 
-from autoconf import conf
+from autonerves import conf
 
 
 def setting(section: Union[List[str], str], name: str):

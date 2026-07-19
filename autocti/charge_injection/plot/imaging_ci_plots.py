@@ -1,7 +1,7 @@
 import copy
 from typing import List, Optional
 
-from autoconf import conf
+from autonerves import conf
 
 from autoarray.plot.array import plot_array
 from autoarray.plot.utils import (

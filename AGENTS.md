@@ -14,7 +14,7 @@ classes. Heritage: Euclid VIS CTI calibration; also HST ACS
 (`autocti/instruments/acs`).
 
 Dependency direction: autocti may import **autoarray** (data structures),
-**autofit** (model-fitting), and **autoconf** (config). Nothing in the PyAuto
+**autofit** (model-fitting), and **autonerves** (config). Nothing in the PyAuto
 stack imports autocti — it is a leaf like PyAutoLens.
 
 ## Resurrection status (2026-07)
@@ -85,13 +85,13 @@ import autocti as ac
 
 ## Key rules / footguns
 
-- Import direction: autoarray / autofit / autoconf only — never autogalaxy or
+- Import direction: autoarray / autofit / autonerves only — never autogalaxy or
   autolens.
 - Unit tests are numpy-only; there is no JAX in this library (arctic is C++).
 - Slicing an autoarray `Mask2D` returns a plain ndarray — rebuild a `Mask2D`
   with the parent's `pixel_scales` before constructing an `Array2D` from it
   (see `autocti/extract/two_d/abstract.py`).
-- Fits I/O goes through `autoconf.fitsable` (`ndarray_via_fits_from`,
+- Fits I/O goes through `autonerves.fitsable` (`ndarray_via_fits_from`,
   `output_to_fits`, `hdu_list_for_output_from`) — instance `.output_to_fits`
   methods no longer exist on autoarray structures.
 - All files use Unix line endings (LF, `\n`) — never `\r\n`.

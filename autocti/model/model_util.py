@@ -1,6 +1,6 @@
 from typing import Optional, List
 
-from autoconf.dictable import from_json
+from autonerves.dictable import from_json
 
 from arcticpy import CCDPhase
 from arcticpy import PixelBounce

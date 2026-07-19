@@ -2,10 +2,10 @@ import os
 
 import pytest
 
-from autoconf.dictable import from_dict
+from autonerves.dictable import from_dict
 
 import autocti as ac
-from autoconf.dictable import from_dict, output_to_json, from_json
+from autonerves.dictable import from_dict, output_to_json, from_json
 
 
 @pytest.fixture(name="settings_dict")

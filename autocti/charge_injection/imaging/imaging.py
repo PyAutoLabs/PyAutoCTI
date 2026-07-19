@@ -3,7 +3,7 @@ from pathlib import Path
 from typing import Optional, List, Dict, Union
 
 import autoarray as aa
-from autoconf import fitsable
+from autonerves import fitsable
 
 from autocti.charge_injection.imaging.settings import SettingsImagingCI
 from autocti.charge_injection.layout import Layout2DCI

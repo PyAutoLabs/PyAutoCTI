@@ -1,4 +1,4 @@
-from autoconf import conf
+from autonerves import conf
 
 import logging
 

@@ -1,7 +1,7 @@
 from typing import List, Optional, Union
 
-from autoconf import conf
-from autoconf.dictable import output_to_json
+from autonerves import conf
+from autonerves.dictable import output_to_json
 
 import autoarray as aa
 import autofit as af

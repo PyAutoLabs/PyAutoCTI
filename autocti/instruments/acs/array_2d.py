@@ -11,7 +11,7 @@ from autoarray.structures.arrays import array_2d_util
 from autoarray.layout import layout_util
 
 from autocti.instruments.acs import acs_util
-from autoconf import fitsable
+from autonerves import fitsable
 
 logging.basicConfig()
 logger = logging.getLogger()

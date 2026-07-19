@@ -35,7 +35,7 @@ Next, install the **PyAuto** parent projects via pip:
 
 .. code-block:: bash
 
-   pip install autoconf
+   pip install autonerves
    pip install autofit
    pip install autoarray
 
@@ -102,7 +102,7 @@ Next, install **PyAutoConf** via pip:
 
 .. code-block:: bash
 
-   pip install autoconf
+   pip install autonerves
 
 Next, install the source build dependencies of each project via pip:
 

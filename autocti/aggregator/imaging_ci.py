@@ -1,7 +1,7 @@
 from functools import partial
 
 import autoarray as aa
-from autoconf.fitsable import ndarray_via_hdu_from
+from autonerves.fitsable import ndarray_via_hdu_from
 import autofit as af
 
 from autocti.charge_injection.imaging.imaging import ImagingCI
