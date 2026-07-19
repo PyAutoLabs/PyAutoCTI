@@ -13,7 +13,7 @@ Setup
 By default, **PyAutoCTI** looks for the config files in a ``config`` folder in the current working directory, which is
 why we run autocti scripts from the ``autocti_workspace`` directory.
 
-The configuration path can also be set manually in a script using the project **PyAutoConf** and the following
+The configuration path can also be set manually in a script using the project **PyAutoNerves** and the following
 command (the path to the ``output`` folder where the results of a non-linear search are stored is also set below):
 
 .. code-block:: bash

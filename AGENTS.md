@@ -67,7 +67,7 @@ NUMBA_CACHE_DIR=/tmp/numba_cache MPLCONFIGDIR=/tmp/matplotlib python -m pytest t
 
 ## Related repos
 
-- **Source siblings:** PyAutoConf, PyAutoArray, PyAutoFit (upstream).
+- **Source siblings:** PyAutoNerves, PyAutoArray, PyAutoFit (upstream).
 - **autocti_workspace** — runnable examples/tutorials (updated in epic Phase 4).
 - **autocti_workspace_test** — regression scripts + Euclid tvac/temporal
   heritage (rebuilt in epic Phase 5).

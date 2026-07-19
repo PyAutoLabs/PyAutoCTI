@@ -98,7 +98,7 @@ First, clone (or fork) all 4 GitHub repositories:
     git clone https://github.com/Jammy2211/PyAutoArray
     git clone https://github.com/Jammy2211/PyAutoCTI
 
-Next, install **PyAutoConf** via pip:
+Next, install **PyAutoNerves** via pip:
 
 .. code-block:: bash
 
