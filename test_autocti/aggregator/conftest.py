@@ -10,13 +10,6 @@ from autonerves.conf import with_config
 from autofit.non_linear.samples import Sample
 
 
-@pytest.fixture(autouse=True)
-def set_test_mode():
-    os.environ["PYAUTOFIT_TEST_MODE"] = "1"
-    yield
-    del os.environ["PYAUTOFIT_TEST_MODE"]
-
-
 def clean(database_file):
     database_sqlite = path.join(conf.instance.output_path, f"{database_file}.sqlite")
 
