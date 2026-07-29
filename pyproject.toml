@@ -8,7 +8,7 @@ dynamic = ["version"]
 description = "PyAutoCTI: Charge Transfer Inefficiency Modeling"
 readme = { file = "README.rst", content-type = "text/x-rst" }
 license = { text = "MIT" }
-requires-python = ">=3.9"
+requires-python = ">=3.12"
 authors = [
     { name = "James Nightingale", email = "James.Nightingale@newcastle.ac.uk" },
     { name = "Richard Massey", email = "r.j.massey@durham.ac.uk" },
@@ -20,9 +20,6 @@ classifiers = [
   "Topic :: Scientific/Engineering :: Physics",
   "Natural Language :: English",
   "Operating System :: OS Independent",
-  "Programming Language :: Python :: 3.9",
-  "Programming Language :: Python :: 3.10",
-  "Programming Language :: Python :: 3.11",
   "Programming Language :: Python :: 3.12",
   "Programming Language :: Python :: 3.13"
 ]
