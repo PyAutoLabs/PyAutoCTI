@@ -8,6 +8,7 @@ from autoarray.structures.grids import grid_2d_util as grid_2d
 from autoarray.structures.grids import sparse_2d_util as sparse
 from autoarray.layout import layout_util as layout
 from autoarray.fit import fit_util as fit
+from autoarray.util import dataset_util as dataset
 from autocti.model import model_util as model
 from autocti.extract.two_d import extract_2d_util as extract_2d
 from autocti.charge_injection import ci_util as ci
