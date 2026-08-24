@@ -40,11 +40,42 @@ a pip dependency:
   toolchain to build.
 - Its own requirements **downgrade numpy below 2.0**, breaking a modern stack.
 
-Install it after numpy is in place:
+So it is built with `--no-build-isolation` (reusing the numpy already present)
+and `--no-deps` (so it cannot drag numpy back down). Both flags have to be paid
+back by hand, and this is where installs go wrong:
+
+- `--no-build-isolation` means pip does **not** read arcticpy's
+  `build-system.requires`, so every **build** dependency must already be
+  installed. arcticpy declares none. Without `setuptools` the build fails with
+  `BackendUnavailable: Cannot import 'setuptools.build_meta'` — and Python
+  3.12+ venvs no longer ship setuptools by default.
+- `--no-deps` means pip installs no **runtime** dependencies either.
+  `arcticpy/__init__.py` imports `read_noise`, which imports `scipy` and
+  `matplotlib` at import time, so without them a successful build still fails
+  at `import arcticpy` with `ModuleNotFoundError`.
+
+The full recipe:
 
 ```bash
+sudo apt-get update && sudo apt-get install -y libgsl-dev
+pip install --upgrade pip setuptools wheel   # BUILD deps: --no-build-isolation
+pip install numpy cython                     #   will not supply these
+pip install scipy matplotlib                 # RUNTIME deps --no-deps suppresses
 pip install arcticpy==2.6 --no-build-isolation --no-deps
 ```
+
+Verify with the distribution metadata, **not** `arcticpy.__version__` —
+arcticpy exposes no such attribute, so that raises `AttributeError` even on a
+healthy install:
+
+```bash
+python -c "import arcticpy; from importlib.metadata import version; print(version('arcticpy'))"
+```
+
+This recipe has one owner for the whole organism:
+**`PyAutoHeart/.github/actions/install-arcticpy`**, the composite action every
+CTI repo's CI consumes. It also holds the single `arcticpy==2.6` pin — bump it
+there, not here. Keep this note and that action in step.
 
 If GSL headers are missing and you lack root, extract them locally
 (`apt-get download libgsl-dev && dpkg -x ...`) and point `CPPFLAGS`/`LDFLAGS`
