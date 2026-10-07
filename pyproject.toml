@@ -47,6 +47,7 @@ Homepage = "https://github.com/PyAutoLabs/PyAutoCTI"
 include-package-data = true
 
 [tool.setuptools.packages.find]
+include = ["autocti*"]
 exclude = ["docs", "test_autocti", "test_autocti*"]
 
 [tool.setuptools_scm]
