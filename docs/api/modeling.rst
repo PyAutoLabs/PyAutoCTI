@@ -50,8 +50,7 @@ Markov Chain Monte Carlo (MCMC) and optimizers.
    Nautilus
    DynestyDynamic
    Emcee
-   PySwarmsLocal
-   PySwarmsGlobal
+   LBFGS
 
 Priors
 ------
