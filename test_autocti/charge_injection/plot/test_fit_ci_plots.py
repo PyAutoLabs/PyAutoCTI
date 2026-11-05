@@ -90,3 +90,15 @@ def test__fits_fit(fit_ci_7x7, tmp_path):
     aplt.fits_fit_ci(fit=fit_ci_7x7, output_path=tmp_path)
 
     assert (Path(tmp_path) / "fit.fits").exists()
+
+
+def test__fits_fit__creates_missing_output_directory(fit_ci_7x7, tmp_path):
+    # Under PYAUTO_FAST_PLOTS=1 no figure is saved first, so nothing else has
+    # created the fit's image subfolder when the FITS file is written.
+    from autocti.charge_injection.plot.fit_ci_plots import fits_fit
+
+    output_path = tmp_path / "image" / "fit_dataset"
+
+    fits_fit(fit=fit_ci_7x7, output_path=output_path)
+
+    assert (output_path / "fit.fits").is_file()
