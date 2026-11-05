@@ -24,7 +24,8 @@ classifiers = [
   "Programming Language :: Python :: 3.13"
 ]
 keywords = ["cli"]
-# arcticpy (the C++ arctic clocking code) is a hard import of autocti but is
+# arcticpy (the C++ arctic clocking code) is needed for clocking, but
+# `import autocti` works without it (autocti/_arcticpy.py imports it lazily). It is
 # deliberately NOT a pip dependency: its sdist is source-only (needs libgsl-dev
 # and a C++ toolchain) and its own requirements downgrade numpy below 2.0.
 # Install it separately with `pip install arcticpy==2.6 --no-build-isolation

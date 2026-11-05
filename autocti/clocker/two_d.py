@@ -1,10 +1,9 @@
 import numpy as np
 from typing import List, Optional
 
-from arcticpy import add_cti
-from arcticpy import remove_cti
+from autocti._arcticpy import optional_import
 
-from arcticpy import ROE
+add_cti, remove_cti, ROE = optional_import("add_cti", "remove_cti", "ROE")
 
 import autoarray as aa
 

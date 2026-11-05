@@ -10,16 +10,6 @@ from autoarray.structures.header import Header
 from autoarray.dataset import preprocess
 from autoarray.dataset.imaging.dataset import Imaging
 
-from arcticpy import ROE
-from arcticpy import ROEChargeInjection
-from arcticpy import CCD
-from arcticpy import CCDPhase
-from arcticpy import TrapInstantCapture
-from arcticpy import TrapSlowCapture
-from arcticpy import TrapInstantCaptureContinuum
-from arcticpy import TrapSlowCaptureContinuum
-from arcticpy import PixelBounce
-
 from .charge_injection.fit import FitImagingCI
 from .charge_injection.hyper import HyperCINoiseScalar
 from .charge_injection.hyper import HyperCINoiseCollection
@@ -110,3 +100,23 @@ from autonerves.test_mode import (
     is_test_mode,
     test_mode_level,
 )
+
+# ---------------------------------------------------------------------------
+# arcticpy re-exports, resolved lazily (PEP 562).
+#
+# ``ac.TrapInstantCapture``, ``ac.CCDPhase``, ``ac.ROE`` and friends are the real
+# arcticpy classes, but arcticpy is imported only when one of them is first
+# used, so ``import autocti`` works on machines without arcticpy installed.
+# Without it, using one raises an ImportError naming the install recipe.
+# ---------------------------------------------------------------------------
+from autocti import _arcticpy
+
+
+def __getattr__(name):
+    if name in _arcticpy.REEXPORTS:
+        return getattr(_arcticpy.arcticpy(), name)
+    raise AttributeError(f"module {__name__!r} has no attribute {name!r}")
+
+
+def __dir__():
+    return sorted(set(globals()) | set(_arcticpy.REEXPORTS))

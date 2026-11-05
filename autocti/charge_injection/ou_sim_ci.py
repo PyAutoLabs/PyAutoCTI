@@ -2,8 +2,9 @@ import math
 import numpy as np
 from typing import List, Union
 
-from arcticpy import CCDPhase
-from arcticpy import TrapInstantCapture
+from autocti._arcticpy import optional_import
+
+CCDPhase, TrapInstantCapture = optional_import("CCDPhase", "TrapInstantCapture")
 
 from autocti.instruments.euclid import euclid_util
 

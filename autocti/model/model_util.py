@@ -2,9 +2,11 @@ from typing import Optional, List
 
 from autonerves.dictable import from_json
 
-from arcticpy import CCDPhase
-from arcticpy import PixelBounce
-from arcticpy import TrapInstantCapture
+from autocti._arcticpy import optional_import
+
+CCDPhase, PixelBounce, TrapInstantCapture = optional_import(
+    "CCDPhase", "PixelBounce", "TrapInstantCapture"
+)
 
 
 class AbstractCTI:
