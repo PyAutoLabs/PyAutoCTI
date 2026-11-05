@@ -1,5 +1,6 @@
-from arcticpy import CCD
-from arcticpy import CCDPhase
+from autocti._arcticpy import optional_import
+
+CCD, CCDPhase = optional_import("CCD", "CCDPhase")
 
 from autonerves.dictable import from_json, output_to_json
 

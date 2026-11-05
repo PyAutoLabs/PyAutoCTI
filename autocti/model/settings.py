@@ -1,6 +1,8 @@
 from typing import List, Optional, Tuple
 
-from arcticpy import TrapInstantCapture
+from autocti._arcticpy import optional_import
+
+TrapInstantCapture = optional_import("TrapInstantCapture")
 
 from autonerves.dictable import from_json, output_to_json
 
