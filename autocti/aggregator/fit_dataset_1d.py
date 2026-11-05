@@ -2,6 +2,7 @@ from __future__ import annotations
 from typing import TYPE_CHECKING, List, Optional
 
 from autocti.aggregator.abstract import AggBase
+from autocti.aggregator.abstract import _cti_list_from
 
 if TYPE_CHECKING:
     from autocti.clocker.abstract import AbstractClocker
@@ -10,30 +11,6 @@ if TYPE_CHECKING:
 import autofit as af
 
 from autocti.aggregator.dataset_1d import _dataset_1d_list_from
-
-
-def _cti_list_from(source, total_datasets: int):
-    """
-    Extract one CTI model per dataset from a model instance.
-
-    A single-analysis instance exposes ``instance.cti`` directly; a factor-graph
-    instance (multi-dataset fit) is an indexed collection with one child
-    instance per factor.
-    """
-    if hasattr(source, "cti"):
-        return [source.cti] * total_datasets
-
-    # A factor-graph instance also carries the FactorGraphModel itself as a
-    # trailing child, so only children with a CTI model are taken.
-    cti_list = [child.cti for child in source if hasattr(child, "cti")]
-
-    if len(cti_list) != total_datasets:
-        raise ValueError(
-            f"The instance contains {len(cti_list)} CTI models but the fit has "
-            f"{total_datasets} datasets."
-        )
-
-    return cti_list
 
 
 def _fit_dataset_1d_list_from(
