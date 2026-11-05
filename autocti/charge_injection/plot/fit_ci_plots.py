@@ -332,4 +332,7 @@ def fits_fit(fit: FitImagingCI, output_path):
         ],
         header_dict=fit.dataset.mask.header_dict,
     )
+    # The fit subfolder may not exist yet: with PYAUTO_FAST_PLOTS=1 no figure is
+    # saved before this, and saving a figure is what used to create it.
+    Path(output_path).mkdir(parents=True, exist_ok=True)
     hdu_list.writeto(Path(output_path) / "fit.fits", overwrite=True)

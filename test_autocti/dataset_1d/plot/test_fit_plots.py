@@ -63,3 +63,15 @@ def test__fits_fit(fit_1d_7, plot_path, tmp_path):
     aplt.fits_fit_dataset_1d(fit=fit_1d_7, output_path=tmp_path)
 
     assert (Path(tmp_path) / "fit.fits").exists()
+
+
+def test__fits_fit__creates_missing_output_directory(fit_1d_7, tmp_path):
+    # Under PYAUTO_FAST_PLOTS=1 no figure is saved first, so nothing else has
+    # created the fit's image subfolder when the FITS file is written.
+    from autocti.dataset_1d.plot.fit_plots import fits_fit
+
+    output_path = tmp_path / "image" / "fit_dataset"
+
+    fits_fit(fit=fit_1d_7, output_path=output_path)
+
+    assert (output_path / "fit.fits").is_file()
