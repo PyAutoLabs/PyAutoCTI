@@ -64,9 +64,8 @@ class CTIAgg(AggBase):
     For example, if the `aggregator` contains 3 model-fits, this class can be used to create a generator which
     creates instances of the corresponding 3 `CTI` objects.
 
-    If multiple `CTI` objects were fitted simultaneously via analysis summing, the `fit.child_values()` method
-    is instead used to load lists of CTIs. This is necessary if each CTI has different galaxies (e.g. certain
-    parameters vary across each dataset and `Analysis` object).
+    A fit to a single dataset gives one `CTI` object per fit. A fit to multiple datasets at once, made with a
+    `FactorGraphModel`, gives a list with one `CTI` object per dataset (in the order the datasets were fitted).
 
     This can be done manually, but this object provides a more concise API.
 
@@ -78,9 +77,9 @@ class CTIAgg(AggBase):
 
     def object_via_gen_from(
         self, fit, instance: Optional[af.ModelInstance] = None
-    ) -> Union[CTI1D, CTI2D]:
+    ) -> Union[CTI1D, CTI2D, List[Union[CTI1D, CTI2D]]]:
         """
-        Returns a generator of `CTI` objects from an input aggregator.
+        Returns the `CTI` object(s) of a model-fit in the aggregator.
 
         See `__init__` for a description of how the `CTI` objects are created by this method.
 
@@ -94,7 +93,7 @@ class CTIAgg(AggBase):
 
         Returns
         -------
-        CTI
-            A list of `CTI` objects whose parameters are a sample of the non-linear search.
+        The `CTI` object whose parameters are a sample of the non-linear search, or for a multi-dataset
+        (`FactorGraphModel`) fit a list with one `CTI` object per dataset.
         """
         return _cti_from(fit=fit, instance=instance)
