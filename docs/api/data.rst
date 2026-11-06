@@ -5,8 +5,7 @@ Data Structures
 2D Data Structures
 ------------------
 
-Two-dimensional data structures store and mask 2D arrays containing data (e.g. images) and
-grids of (y,x) Cartesian coordinates.
+Two-dimensional data structures store and mask 2D arrays containing data (e.g. images).
 
 .. currentmodule:: autocti
 
@@ -17,8 +16,6 @@ grids of (y,x) Cartesian coordinates.
 
    Mask2D
    Array2D
-   Grid2D
-   Grid2DIrregular
 
 Charge Injection Imaging
 ------------------------
@@ -36,8 +33,7 @@ For charge injection datasets taken with a CCD (or similar imaging device).
 1D Data Structures
 ------------------
 
-One-dimensional data structures store and mask 1D arrays containing data (e.g. 1D CTI datasets
-images) and grids of (y,x) Cartesian coordinates.
+One-dimensional data structures store and mask 1D arrays containing data (e.g. 1D CTI datasets).
 
 .. autosummary::
    :toctree: _autosummary
@@ -47,7 +43,6 @@ images) and grids of (y,x) Cartesian coordinates.
    Mask1D
    Array1D
    ArrayIrregular
-   Grid1D
 
 Dataset 1D
 ----------
@@ -58,6 +53,5 @@ For 1D datasets.
    :toctree: generated/
 
    Dataset1D
-   LayoutDataset1D
-   SettingsDataset1D
+   Layout1D
    SimulatorDataset1D
