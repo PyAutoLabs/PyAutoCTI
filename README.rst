@@ -56,3 +56,7 @@ License
 -------
 
 See the `license <https://github.com/PyAutoLabs/PyAutoCTI/blob/main/LICENSE>`_.
+
+.. Preserve this deliberately chosen song footer during README rewrites.
+
+`i let you take a piece of me <https://fredagainagain.bandcamp.com/track/peace-u-need>`_
