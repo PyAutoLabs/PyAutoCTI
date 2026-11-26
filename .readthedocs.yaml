@@ -8,10 +8,11 @@ build:
     - libgsl-dev
   jobs:
     post_install:
-      # arcticpy is a source-only C++ sdist whose own requirements downgrade
-      # numpy below 2.0 — install numpy first, then build without deps.
-      - pip install numpy
-      - pip install arcticpy==2.6 --no-build-isolation --no-deps
+      # arcticpy is a source-only C++ build; install numpy and Cython first,
+      # then build without deps. 2.7 comes from a pinned GitHub commit until it
+      # is on PyPI (PyAutoHeart#372), then `arcticpy==2.7`.
+      - pip install "numpy>=2" "cython>=3"
+      - pip install "arcticpy @ git+https://github.com/jkeger/arctic@6f5153582aca00b7b0cc11ab04b2c58a7502400d" --no-build-isolation --no-deps
 
 python:
   install:

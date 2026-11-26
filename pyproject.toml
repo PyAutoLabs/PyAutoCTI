@@ -27,9 +27,12 @@ keywords = ["cli"]
 # arcticpy (the C++ arctic clocking code) is needed for clocking, but
 # `import autocti` works without it (autocti/_arcticpy.py imports it lazily). It is
 # deliberately NOT a pip dependency: its sdist is source-only (needs libgsl-dev
-# and a C++ toolchain) and its own requirements downgrade numpy below 2.0.
-# Install it separately with `pip install arcticpy==2.6 --no-build-isolation
-# --no-deps` after installing numpy.
+# and a C++ toolchain) and its requirements up to 2.6 downgrade numpy below 2.0.
+# Install it separately, after installing numpy and Cython (GSL headers needed),
+# with `pip install "arcticpy @ git+https://github.com/jkeger/arctic@6f5153582aca00b7b0cc11ab04b2c58a7502400d"
+# --no-build-isolation --no-deps` (2.7 from a pinned GitHub commit: a stopgap
+# until 2.7 is on PyPI, then `pip install arcticpy==2.7 --no-build-isolation
+# --no-deps`; PyAutoHeart#372).
 dependencies = [
     # Prevent fallback to Nerves releases permitting the CPU LAPACK deadlock.
     "autonerves>=2026.11.9.1.post1",  # jax>=0.12 floor (PyAutoNerves#215): excludes 2026.11.9.1, the last jax-0.11 Nerves; ">=…post1" so a source Nerves built as 2026.11.9.1.postN still satisfies it
