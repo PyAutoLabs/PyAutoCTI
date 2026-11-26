@@ -58,9 +58,10 @@ The full recipe:
 ```bash
 sudo apt-get update && sudo apt-get install -y libgsl-dev
 pip install --upgrade pip setuptools wheel   # BUILD deps: --no-build-isolation
-pip install numpy cython                     #   will not supply these
+pip install "numpy>=2" "cython>=3"           #   will not supply these
 pip install scipy matplotlib                 # RUNTIME deps --no-deps suppresses
-pip install arcticpy==2.6 --no-build-isolation --no-deps
+pip install "arcticpy @ git+https://github.com/jkeger/arctic@6f5153582aca00b7b0cc11ab04b2c58a7502400d" \
+    --no-build-isolation --no-deps   # 2.7; `arcticpy==2.7` once on PyPI
 ```
 
 Verify with the distribution metadata, **not** `arcticpy.__version__` —
@@ -73,8 +74,8 @@ python -c "import arcticpy; from importlib.metadata import version; print(versio
 
 This recipe has one owner for the whole organism:
 **`PyAutoHeart/.github/actions/install-arcticpy`**, the composite action every
-CTI repo's CI consumes. It also holds the single `arcticpy==2.6` pin — bump it
-there, not here. Keep this note and that action in step.
+CTI repo's CI consumes. It also holds the single arcticpy pin (for now a GitHub
+commit of 2.7, until 2.7 is on PyPI; PyAutoHeart#372) — bump it there, not here. Keep this note and that action in step.
 
 If GSL headers are missing and you lack root, extract them locally
 (`apt-get download libgsl-dev && dpkg -x ...`) and point `CPPFLAGS`/`LDFLAGS`
