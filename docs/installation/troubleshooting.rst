@@ -37,8 +37,9 @@ installed separately: ``pip install scipy matplotlib``.
 
     pip install arcticpy_no_gsl
 
-It predates arcticpy 2.7 and has not been tested with numpy 2 or the current **PyAutoCTI**, so use it only when the
-recipe on the arCTIc page is not an option.
+It predates arcticpy 2.7 and has not been tested with numpy 2 or the current **PyAutoCTI**. Like a plain
+``pip install arcticpy``, it may downgrade numpy below 2.0, so use it only when the recipe on the arCTIc page is not
+an option, and check ``pip show numpy`` afterwards.
 
 Current Working Directory
 -------------------------

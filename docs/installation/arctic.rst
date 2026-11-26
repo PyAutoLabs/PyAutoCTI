@@ -64,7 +64,7 @@ flags keep that build from disturbing the rest of your environment:
 - **--no-deps** stops pip from changing your other packages, including numpy. In return, the packages arcticpy needs
   when it runs (``scipy`` and ``matplotlib``) must be installed by hand, which the second line also does.
 
-The **PyAutoCTI** test and documentation builds install arcticpy with exactly this recipe. Its maintained copy is the
+The **PyAutoCTI** test and documentation builds install arcticpy the same way. The maintained copy of the recipe is the
 `install_arcticpy.sh <https://github.com/PyAutoLabs/PyAutoHeart/blob/main/.github/actions/install-arcticpy/install_arcticpy.sh>`_
 script, which also checks for GSL and verifies the import.
 
