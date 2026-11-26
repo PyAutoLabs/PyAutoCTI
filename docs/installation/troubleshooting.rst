@@ -3,17 +3,42 @@
 Troubleshooting
 ===============
 
-GSL
----
+arcticpy
+--------
 
-`arcticpy` depends on the GSL libraries, which can cause installation issues.
+Most installation problems come from arcticpy, the package that runs arCTIc. Its install steps are on the
+`arCTIc page <https://pyautocti.readthedocs.io/en/latest/installation/arctic.html>`_. These are the usual errors.
 
-If your installation of **PyAutoCTI** fails due to GSL, try installing the following version of arcticpy which does
-not depend on GSL, after you have installed ``autocti``:
+**GSL not found.** The build stops with a compiler error mentioning ``gsl/gsl_*.h``, or a ``gsl`` library it cannot
+find. Install GSL and run the arcticpy install again:
+
+.. code-block:: bash
+
+    sudo apt-get install -y libgsl-dev   # Debian / Ubuntu
+    brew install gsl                     # macOS
+
+**numpy was downgraded.** If ``pip`` replaced numpy 2 with numpy 1.x while installing arcticpy, you ran a plain
+``pip install arcticpy``, which fetched version 2.6 or older. Put numpy back, then follow the arCTIc page:
+
+.. code-block:: bash
+
+    pip uninstall -y arcticpy
+    pip install "numpy>=2"
+
+**Cannot import 'setuptools.build_meta'.** The build tools are missing. Recent Python versions no longer include
+``setuptools`` in a new virtual environment. Run ``pip install --upgrade pip setuptools wheel`` and try again.
+
+**No module named scipy or matplotlib when importing arcticpy.** The install uses ``--no-deps``, so these are
+installed separately: ``pip install scipy matplotlib``.
+
+**Last resort: arcticpy without GSL.** If you cannot install GSL at all, an older package built without it exists:
 
 .. code-block:: bash
 
     pip install arcticpy_no_gsl
+
+It predates arcticpy 2.7 and has not been tested with numpy 2 or the current **PyAutoCTI**, so use it only when the
+recipe on the arCTIc page is not an option.
 
 Current Working Directory
 -------------------------

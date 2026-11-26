@@ -3,43 +3,70 @@
 Installing arCTIc
 =================
 
-The c++ package **arCTIc**, or the **AlgoRithm for Charge Transfer Inefficiency (CTI) Correction**, must be installed
-alongside **PyAutoCTI**.
+**arCTIc**, the AlgoRithm for Charge Transfer Inefficiency (CTI) Correction, is the C++ code that models how charge
+moves through a CCD as it is read out, including the effects of CTI. **PyAutoCTI** uses it through the Python package
+``arcticpy``.
 
-**arCTIc** models the CCD read out process, including the effects of CTI. **PyAutoCTI** wraps the c++ **arCTIc** source code
-via a Cython wrapper, making it straight forward to import and use in **PyAutoCTI**.
+You need it to fit or simulate CTI. You don't need it to ``import autocti``: **PyAutoCTI** only loads arcticpy when
+it clocks charge, so you can install **PyAutoCTI**, explore the workspace and add arcticpy afterwards.
 
-**arCTIc** is a requirement of **PyAutoCTI** and should be installed when the following command is run:
+``pip install autocti`` does not install arcticpy. Install it yourself with the steps below.
+
+Install
+-------
+
+First install the GSL maths library, which arcticpy needs to build:
 
 .. code-block:: bash
 
-    pip install autocti
+    sudo apt-get install -y libgsl-dev   # Debian / Ubuntu
+    brew install gsl                     # macOS
 
-You can check that **arCTIc** has been installed via the command:
+Then, in the same Python environment as **PyAutoCTI**:
 
 .. code-block:: bash
 
+    pip install --upgrade pip setuptools wheel
+    pip install "numpy>=2" "cython>=3" scipy matplotlib
+    pip install "arcticpy @ git+https://github.com/jkeger/arctic@6f5153582aca00b7b0cc11ab04b2c58a7502400d" --no-build-isolation --no-deps
+
+arcticpy 2.7 is the first version that works with numpy 2. It is not on PyPI yet, so the last line builds it from a
+fixed version on GitHub. Once 2.7 is on PyPI, that line becomes:
+
+.. code-block:: bash
+
+    pip install arcticpy==2.7 --no-build-isolation --no-deps
+
+Don't run a plain ``pip install arcticpy``. It installs version 2.6 or older, which downgrades numpy below 2.0 and
+breaks the rest of your **PyAutoCTI** install.
+
+Check it worked
+---------------
+
+.. code-block:: bash
+
+    python -c "import arcticpy; print('arcticpy OK')"
     pip show arcticpy
 
-You should get the following text:
+``pip show`` should report ``Version: 2.7``.
 
-.. code-block:: bash
+Why each step is there
+----------------------
 
-    Name: arcticpy
-    Version: 2.1
-    Summary: This is the python module for the arCTIc code
-    Home-page:
-    Author:
-    Author-email: Richard Massey <r.j.massey@durham.ac.uk>
-    License:
-    Location: /mnt/c/Users/Jammy/Code/PyAuto/arctic/python
-    Requires: autonerves, numpy
-    Required-by:
+arcticpy is shipped as C++ source code, not a ready-built package, so pip compiles it on your computer. The extra
+flags keep that build from disturbing the rest of your environment:
 
-If an error is raised when trying to install **arCTIc** you should first try to install it via `pip`:
+- **GSL** is a C library arcticpy links against. Without its headers the build stops with a compiler error that
+  mentions ``gsl``.
+- **--no-build-isolation** builds arcticpy against the numpy already in your environment, instead of pip fetching a
+  separate one. In return, the build tools (``setuptools``, ``wheel``, ``numpy`` and ``cython``) must be installed
+  first, which is what the first two lines do.
+- **--no-deps** stops pip from changing your other packages, including numpy. In return, the packages arcticpy needs
+  when it runs (``scipy`` and ``matplotlib``) must be installed by hand, which the second line also does.
 
-.. code-block:: bash
+The **PyAutoCTI** test and documentation builds install arcticpy with exactly this recipe. Its maintained copy is the
+`install_arcticpy.sh <https://github.com/PyAutoLabs/PyAutoHeart/blob/main/.github/actions/install-arcticpy/install_arcticpy.sh>`_
+script, which also checks for GSL and verifies the import.
 
-    pip install arcticpy
-
-If the installation does not work, you can follow additional installation instructions for **arCTIc** on its GitHub page (https://github.com/jkeger/arctic).
+If something goes wrong, see the `troubleshooting section <https://pyautocti.readthedocs.io/en/latest/installation/troubleshooting.html>`_
+or arCTIc's own `GitHub page <https://github.com/jkeger/arctic>`_.

@@ -43,19 +43,41 @@ the installation has clean dependencies):
 
     pip install autocti
 
-The CTI clocking algorithm, arCTIc, is an optional install, because there are uaes for **PyAutoCTI** that do not
-require it and it can present difficulties to install.
+arCTIc
+------
 
-However, for the majority of users arCTIc will be needed, so we recommend you install it now.
+arCTIc is the C++ code that clocks charge through a CCD, and **PyAutoCTI** uses it through the Python package
+``arcticpy``. You can ``import autocti`` without it, so it is fine to skip this step while you look around, but
+fitting or simulating CTI needs it.
+
+``arcticpy`` is built from source on your computer, so it needs the GSL maths library first:
 
 .. code-block:: bash
 
-    pip install arcticpy
+    sudo apt-get install -y libgsl-dev   # Debian / Ubuntu
+    brew install gsl                     # macOS
 
-If there is an error (e.g. issues with installing GSL) check out the `troubleshooting section <https://pyautocti.readthedocs.io/en/latest/installation/troubleshooting.html>`_.
+Then install arcticpy 2.7:
 
-You may get warnings which state something like:
+.. code-block:: bash
 
+    pip install --upgrade pip setuptools wheel
+    pip install "numpy>=2" "cython>=3" scipy matplotlib
+    pip install "arcticpy @ git+https://github.com/jkeger/arctic@6f5153582aca00b7b0cc11ab04b2c58a7502400d" --no-build-isolation --no-deps
+
+arcticpy 2.7 is not on PyPI yet, so the last line builds it from a fixed version on GitHub.
+Once it is on PyPI, that line becomes ``pip install arcticpy==2.7 --no-build-isolation --no-deps``. A plain
+``pip install arcticpy`` installs an older version that does not work with numpy 2, so don't use it.
+
+Check it worked:
+
+.. code-block:: bash
+
+    python -c "import arcticpy; print('arcticpy OK')"
+
+The `arCTIc page <https://pyautocti.readthedocs.io/en/latest/installation/arctic.html>`_ explains each step, and
+the `troubleshooting section <https://pyautocti.readthedocs.io/en/latest/installation/troubleshooting.html>`_ covers
+the common errors.
 
 Numba
 -----
