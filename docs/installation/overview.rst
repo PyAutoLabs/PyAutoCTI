@@ -5,8 +5,10 @@ Overview
 
 **PyAutoCTI** requires Python 3.12 or 3.13 and supports Linux and macOS operating systems (Windows support is targeted in the future).
 
-To use **PyAutoCTI** the c++ library **arCTIc** (https://github.com/jkeger/arctic) must also be installed. Installation instructions for **arCTIc** can be found both
-on its GitHub page and in the **PyAutoCTI** readthedocs.
+To fit or simulate CTI, **PyAutoCTI** also needs the C++ library **arCTIc** (https://github.com/jkeger/arctic), through
+the Python package ``arcticpy``. It is installed separately, after **PyAutoCTI**: the pip and conda guides below
+include the steps, and the `arCTIc page <https://pyautocti.readthedocs.io/en/latest/installation/arctic.html>`_
+explains them.
 
 **PyAutoCTI** can be installed via the Python distribution `Anaconda <https://www.anaconda.com/>`_ or using
 `Pypi <https://pypi.org/>`_ to ``pip install`` **PyAutoCTI** into your Python distribution.
